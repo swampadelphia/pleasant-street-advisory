@@ -38,10 +38,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── LAYOUT ── */
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       border-bottom: 0.5px solid var(--border);
       position: sticky;
@@ -59,12 +58,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    .logo {
-      font-family: var(--serif);
-      font-size: 16px;
-      text-decoration: none;
-      color: var(--text-primary);
-    }
+    .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); }
     .logo em { font-style: italic; color: var(--text-secondary); }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
@@ -84,11 +78,8 @@
     .nav-cta:hover { background: var(--bg-secondary); }
     .nav-mobile { display: none; }
 
-    /* ── HERO ── */
-    .hero {
-      padding: 5rem 0 4rem;
-      border-bottom: 0.5px solid var(--border);
-    }
+    /* HERO */
+    .hero { padding: 5rem 0 4rem; border-bottom: 0.5px solid var(--border); }
     .hero-inner {
       max-width: 960px;
       margin: 0 auto;
@@ -98,27 +89,11 @@
       gap: 3rem;
       align-items: center;
     }
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
-    }
-    h1 {
-      font-family: var(--serif);
-      font-size: 44px;
-      line-height: 1.12;
-      margin-bottom: 1.5rem;
-    }
+    .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
+    h1 { font-family: var(--serif); font-size: 44px; line-height: 1.12; margin-bottom: 1rem; }
     h1 em { font-style: italic; color: var(--text-secondary); }
-    .hero-sub {
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--text-secondary);
-      font-weight: 300;
-      margin-bottom: 2rem;
-    }
+    .hero-hook { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; }
+    .hero-sub { font-size: 15px; line-height: 1.75; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
     .btn-solid {
       display: inline-block;
       background: var(--text-primary);
@@ -134,13 +109,8 @@
     }
     .btn-solid:hover { opacity: 0.85; }
 
-    /* ── STAT PANEL ── */
-    .stat-panel {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-lg);
-      border: 0.5px solid var(--border);
-      padding: 1.75rem;
-    }
+    /* STAT PANEL */
+    .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.75rem; }
     .stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -151,234 +121,92 @@
       overflow: hidden;
       margin-bottom: 1rem;
     }
-    .stat {
-      background: var(--white);
-      padding: 1.25rem;
-    }
-    .stat-num {
-      font-family: var(--serif);
-      font-size: 26px;
-      color: var(--text-primary);
-      display: block;
-      margin-bottom: 2px;
-    }
+    .stat { background: var(--white); padding: 1.25rem; }
+    .stat-num { font-family: var(--serif); font-size: 26px; color: var(--text-primary); display: block; margin-bottom: 2px; }
     .stat-label { font-size: 12px; color: var(--text-secondary); }
-    .panel-quote {
-      font-size: 13px;
-      font-style: italic;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      border-left: 2px solid var(--border-mid);
-      padding-left: 12px;
-      margin-top: 1rem;
-    }
+    .panel-quote { font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; margin-top: 1rem; }
 
-    /* ── SECTIONS ── */
+    /* SECTIONS */
     section { border-bottom: 0.5px solid var(--border); }
     .section-pad { padding: 4rem 0; }
     .section-alt { background: var(--bg-secondary); }
+    .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; margin-bottom: 0.4rem; }
+    .section-sub { font-size: 14px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2.5rem; }
 
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-    }
-    h2 {
-      font-family: var(--serif);
-      font-size: 30px;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
-    }
-    .section-sub {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 300;
-      margin-bottom: 2.5rem;
-    }
-
-    /* ── CARDS 3-COL ── */
-    .cards3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .card {
-      background: var(--white);
-      padding: 1.75rem;
-    }
-    .card-num {
-      font-family: var(--serif);
-      font-size: 36px;
-      color: var(--border-mid);
-      display: block;
-      margin-bottom: 0.75rem;
-    }
+    /* CARDS 3-COL */
+    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .card { background: var(--white); padding: 1.75rem; }
+    .card-num { font-family: var(--serif); font-size: 36px; color: var(--border-mid); display: block; margin-bottom: 0.75rem; }
     .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.6rem; }
     .card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
 
-    /* ── OUTCOMES ── */
-    .outcomes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
+    /* OUTCOMES */
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
     .outcome { background: var(--white); padding: 1.75rem; }
-    .outcome-label {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-secondary);
-      margin-bottom: 0.6rem;
-    }
-    .outcome-num {
-      font-family: var(--serif);
-      font-size: 28px;
-      margin-bottom: 0.6rem;
-    }
+    .outcome-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .outcome-num { font-family: var(--serif); font-size: 28px; margin-bottom: 0.6rem; }
     .outcome-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ── STEPS ── */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin-top: 2rem;
-    }
-    .step {
-      padding: 1.5rem 1.25rem;
-      border: 0.5px solid var(--border);
-      margin-right: -0.5px;
-      background: var(--white);
-    }
+    /* STEPS */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 2rem; }
+    .step { padding: 1.5rem 1.25rem; border: 0.5px solid var(--border); margin-right: -0.5px; background: var(--white); }
     .step:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
     .step:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-right: 0; }
-    .step-n {
-      font-family: var(--serif);
-      font-size: 28px;
-      color: var(--border-mid);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
+    .step-n { font-family: var(--serif); font-size: 28px; color: var(--border-mid); display: block; margin-bottom: 0.5rem; }
     .step-title { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
     .step-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ── VERTICALS ── */
-    .vert-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      margin-top: 2rem;
-    }
+    /* VERTICALS */
+    .vert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
     .vert { background: var(--white); padding: 1.5rem 1.25rem; }
-    .vert-tag {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
+    .vert-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
     .vert-name { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
     .vert-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
 
-    /* ── STAGES ── */
-    .stages {
-      display: flex;
-      margin-top: 2rem;
-    }
-    .stage {
-      flex: 1;
-      padding: 1.25rem;
-      border: 0.5px solid var(--border);
-      margin-right: -0.5px;
-      background: var(--white);
-    }
-    .stage:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
-    .stage:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-right: 0; }
-    .stage-badge {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-    .stage-name { font-size: 14px; font-weight: 500; }
+    /* STUCK */
+    .stuck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
+    .stuck { background: var(--white); padding: 1.5rem 1.75rem; }
+    .stuck-arrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
+    .stuck-from { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.2rem; }
+    .stuck-to { font-size: 14px; font-weight: 500; color: var(--text-primary); }
 
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-    .about-body {
-      font-size: 14px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      font-weight: 300;
-      margin-bottom: 1rem;
-    }
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-left { display: flex; flex-direction: column; gap: 1.5rem; }
+    .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: var(--radius-lg); border: 0.5px solid var(--border); display: block; }
+    .about-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); font-weight: 300; margin-bottom: 1rem; }
     .about-body strong { color: var(--text-primary); font-weight: 500; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
-    .tag {
-      font-size: 12px;
-      border: 0.5px solid var(--border-mid);
-      border-radius: 100px;
-      padding: 5px 14px;
-      color: var(--text-secondary);
-    }
+    .tag { font-size: 12px; border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 5px 14px; color: var(--text-secondary); }
 
-    /* ── CTA ── */
+    /* CTA */
     .cta-section { padding: 5rem 0; text-align: center; border-bottom: none; }
     .cta-section h2 { font-size: 36px; margin-bottom: 0.75rem; }
     .cta-sub { font-size: 15px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 0.5px solid var(--border);
-      padding: 1.5rem 2rem;
-    }
-    .footer-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* FOOTER */
+    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .footer-logo { font-family: var(--serif); font-size: 13px; }
     .footer-copy { font-size: 12px; color: var(--text-secondary); }
 
-    /* ── MOBILE ── */
+    /* MOBILE */
     @media (max-width: 768px) {
       h1 { font-size: 32px; }
       h2 { font-size: 24px; }
+      .hero { padding: 3rem 0; }
       .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .section-pad { padding: 3rem 0; }
       .cards3 { grid-template-columns: 1fr; }
       .outcomes { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
       .step:first-child { border-radius: var(--radius-md) 0 0 0; }
       .step:last-child { border-radius: 0 0 var(--radius-md) 0; margin-right: -0.5px; }
       .vert-grid { grid-template-columns: 1fr 1fr; }
-      .stages { flex-wrap: wrap; }
-      .stage { flex: 1 1 40%; margin-bottom: -0.5px; }
-      .stage:first-child { border-radius: var(--radius-md) 0 0 0; }
-      .stage:last-child { border-radius: 0 0 var(--radius-md) 0; }
+      .stuck-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { aspect-ratio: 4/3; object-position: center 20%; }
       .nav-links { display: none; }
       .nav-mobile { display: block; font-size: 13px; color: var(--text-secondary); }
     }
@@ -393,7 +221,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="logo">Pleasant Street <em>Advisory</em></a>
@@ -403,36 +230,36 @@
         <li><a href="#about">About</a></li>
       </ul>
       <span class="nav-mobile">Menu</span>
-      <a href="#contact" class="nav-cta">Book a call</a>
+      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="nav-cta">Book a call</a>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
       <div>
         <p class="eyebrow">Revenue architecture · Seed → Series C</p>
         <h1>Designing revenue<br>engines for <em>growth<br>companies.</em></h1>
+        <p class="hero-hook">When the product works, but the revenue system doesn't yet.</p>
         <p class="hero-sub">We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, crypto, AI, and developer platforms.</p>
-        <a href="#contact" class="btn-solid">Work with us →</a>
+        <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Work with us →</a>
       </div>
       <div class="stat-panel">
         <div class="stat-grid">
           <div class="stat">
-            <span class="stat-num">$15M+</span>
-            <span class="stat-label">Revenue engine scaled</span>
+            <span class="stat-num">$17M+</span>
+            <span class="stat-label">Revenue built across roles</span>
           </div>
           <div class="stat">
-            <span class="stat-num">$0→$2M</span>
-            <span class="stat-label">Business line built</span>
+            <span class="stat-num">250+</span>
+            <span class="stat-label">Accounts managed</span>
           </div>
           <div class="stat">
             <span class="stat-num">115%</span>
             <span class="stat-label">Net revenue retention</span>
           </div>
           <div class="stat">
-            <span class="stat-num">30+</span>
-            <span class="stat-label">Strategic accounts managed</span>
+            <span class="stat-num">16+</span>
+            <span class="stat-label">Years as GTM operator</span>
           </div>
         </div>
         <p class="panel-quote">Turn ambiguity into predictable growth.</p>
@@ -440,7 +267,6 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
   <section id="services">
     <div class="section-pad wrap">
       <p class="section-label">What we build</p>
@@ -466,7 +292,6 @@
     </div>
   </section>
 
-  <!-- OUTCOMES -->
   <section id="outcomes" class="section-alt">
     <div class="section-pad wrap">
       <p class="section-label">Selected outcomes</p>
@@ -492,7 +317,6 @@
     </div>
   </section>
 
-  <!-- HOW WE WORK -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">How we work</p>
@@ -522,7 +346,6 @@
     </div>
   </section>
 
-  <!-- VERTICALS -->
   <section class="section-alt">
     <div class="section-pad wrap">
       <p class="section-label">Where we focus</p>
@@ -552,29 +375,46 @@
     </div>
   </section>
 
-  <!-- STAGES -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">Who we help</p>
-      <h2>Every stage of the revenue journey.</h2>
-      <div class="stages">
-        <div class="stage"><span class="stage-badge">Stage</span><p class="stage-name">Seed</p></div>
-        <div class="stage"><span class="stage-badge">Stage</span><p class="stage-name">Series A</p></div>
-        <div class="stage"><span class="stage-badge">Stage</span><p class="stage-name">Series B</p></div>
-        <div class="stage"><span class="stage-badge">Stage</span><p class="stage-name">Series C</p></div>
+      <h2>Where companies get stuck.</h2>
+      <p class="section-sub">We build the system to get you to the next stage.</p>
+      <div class="stuck-grid">
+        <div class="stuck">
+          <span class="stuck-arrow">The transition</span>
+          <p class="stuck-from">Founder-led sales</p>
+          <p class="stuck-to">→ Repeatable team motion</p>
+        </div>
+        <div class="stuck">
+          <span class="stuck-arrow">The transition</span>
+          <p class="stuck-from">Early traction</p>
+          <p class="stuck-to">→ Structured pipeline</p>
+        </div>
+        <div class="stuck">
+          <span class="stuck-arrow">The transition</span>
+          <p class="stuck-from">First customers</p>
+          <p class="stuck-to">→ Expansion engine</p>
+        </div>
+        <div class="stuck">
+          <span class="stuck-arrow">The transition</span>
+          <p class="stuck-from">Growth</p>
+          <p class="stuck-to">→ Predictable revenue</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about" class="section-alt">
     <div class="section-pad wrap">
       <div class="about-grid">
+        <div class="about-left">
+          <img src="./avi.jpg" alt="Avi Meyers — Pleasant Street Advisory" class="about-photo" />
+        </div>
         <div>
           <p class="section-label">About</p>
           <h2>Operator background.<br>Architect's lens.</h2>
-        </div>
-        <div>
+          <br>
           <p class="about-body"><strong>Pleasant Street Advisory is led by Avi Meyers</strong>, a revenue and GTM operator with 16+ years across fintech, crypto, and SaaS.</p>
           <p class="about-body">Avi has built and run revenue organizations scaling from $2M to $15M ARR, launched new business lines from $0 to $2M, and designed forward-deployed customer models that drove 115%+ net revenue retention.</p>
           <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: <strong>when the product works, but the revenue system doesn't yet.</strong></p>
@@ -591,20 +431,18 @@
     </div>
   </section>
 
-  <!-- CTA -->
   <section id="contact" class="cta-section">
     <div class="wrap">
       <h2>Ready to build the system?</h2>
       <p class="cta-sub">In 30 minutes we can usually identify the biggest gap in your revenue system.</p>
-      <a href="mailto:avi@pleasantstreetadvisory.com" class="btn-solid">Schedule a discovery call →</a>
+      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Schedule a discovery call →</a>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <span class="footer-logo">Pleasant Street Advisory</span>
-      <span class="footer-copy">© 2026 · pleasantstreetadvisory.com</span>
+      <span class="footer-copy">© 2026 · pleasantstreet.co</span>
     </div>
   </footer>
 
