@@ -16,7 +16,6 @@
 
     :root {
       --white: #ffffff;
-      --bg: #fafaf9;
       --bg-secondary: #f4f3f1;
       --text-primary: #1a1a18;
       --text-secondary: #6b6b67;
@@ -36,29 +35,30 @@
       background: var(--white);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* NAV */
     nav {
       border-bottom: 0.5px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 200;
     }
     .nav-inner {
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); }
+    .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); flex-shrink: 0; }
     .logo em { font-style: italic; color: var(--text-secondary); }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
@@ -73,24 +73,74 @@
       background: transparent;
       color: var(--text-primary);
       text-decoration: none;
-      transition: background 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .nav-cta:hover { background: var(--bg-secondary); }
-    .nav-mobile { display: none; }
+
+    /* MOBILE MENU */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: all 0.2s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 0.5px solid var(--border);
+      z-index: 199;
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 15px;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-book {
+      display: inline-block;
+      margin-top: 0.5rem;
+      background: var(--text-primary);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 14px;
+      text-align: center;
+    }
 
     /* HERO */
-    .hero { padding: 5rem 0 4rem; border-bottom: 0.5px solid var(--border); }
+    .hero { padding: 4rem 0 4rem; border-bottom: 0.5px solid var(--border); }
     .hero-inner {
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
     }
     .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
-    h1 { font-family: var(--serif); font-size: 44px; line-height: 1.12; margin-bottom: 1rem; }
+    h1 { font-family: var(--serif); font-size: 42px; line-height: 1.12; margin-bottom: 1rem; }
     h1 em { font-style: italic; color: var(--text-secondary); }
     .hero-hook { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; }
     .hero-sub { font-size: 15px; line-height: 1.75; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
@@ -105,12 +155,10 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: opacity 0.15s;
     }
-    .btn-solid:hover { opacity: 0.85; }
 
     /* STAT PANEL */
-    .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.75rem; }
+    .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; }
     .stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -121,10 +169,10 @@
       overflow: hidden;
       margin-bottom: 1rem;
     }
-    .stat { background: var(--white); padding: 1.25rem; }
-    .stat-num { font-family: var(--serif); font-size: 26px; color: var(--text-primary); display: block; margin-bottom: 2px; }
-    .stat-label { font-size: 12px; color: var(--text-secondary); }
-    .panel-quote { font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; margin-top: 1rem; }
+    .stat { background: var(--white); padding: 1.1rem; }
+    .stat-num { font-family: var(--serif); font-size: 24px; color: var(--text-primary); display: block; margin-bottom: 2px; }
+    .stat-label { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+    .panel-quote { font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; }
 
     /* SECTIONS */
     section { border-bottom: 0.5px solid var(--border); }
@@ -132,20 +180,20 @@
     .section-alt { background: var(--bg-secondary); }
     .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem; }
     h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; margin-bottom: 0.4rem; }
-    .section-sub { font-size: 14px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2.5rem; }
+    .section-sub { font-size: 14px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
 
-    /* CARDS 3-COL */
+    /* CARDS */
     .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .card { background: var(--white); padding: 1.75rem; }
-    .card-num { font-family: var(--serif); font-size: 36px; color: var(--border-mid); display: block; margin-bottom: 0.75rem; }
-    .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.6rem; }
+    .card { background: var(--white); padding: 1.5rem; }
+    .card-num { font-family: var(--serif); font-size: 34px; color: var(--border-mid); display: block; margin-bottom: 0.75rem; }
+    .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.5rem; }
     .card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
 
     /* OUTCOMES */
     .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .outcome { background: var(--white); padding: 1.75rem; }
+    .outcome { background: var(--white); padding: 1.5rem; }
     .outcome-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 0.6rem; }
-    .outcome-num { font-family: var(--serif); font-size: 28px; margin-bottom: 0.6rem; }
+    .outcome-num { font-family: var(--serif); font-size: 26px; margin-bottom: 0.5rem; }
     .outcome-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
     /* STEPS */
@@ -159,68 +207,76 @@
 
     /* VERTICALS */
     .vert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
-    .vert { background: var(--white); padding: 1.5rem 1.25rem; }
+    .vert { background: var(--white); padding: 1.25rem; min-width: 0; }
     .vert-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
     .vert-name { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
     .vert-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
 
     /* STUCK */
     .stuck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
-    .stuck { background: var(--white); padding: 1.5rem 1.75rem; }
+    .stuck { background: var(--white); padding: 1.5rem; }
     .stuck-arrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
     .stuck-from { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.2rem; }
     .stuck-to { font-size: 14px; font-weight: 500; color: var(--text-primary); }
 
     /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .about-left { display: flex; flex-direction: column; gap: 1.5rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
     .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: var(--radius-lg); border: 0.5px solid var(--border); display: block; }
     .about-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); font-weight: 300; margin-bottom: 1rem; }
     .about-body strong { color: var(--text-primary); font-weight: 500; }
+    .about-title { margin-bottom: 1.5rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
     .tag { font-size: 12px; border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 5px 14px; color: var(--text-secondary); }
 
     /* CTA */
     .cta-section { padding: 5rem 0; text-align: center; border-bottom: none; }
-    .cta-section h2 { font-size: 36px; margin-bottom: 0.75rem; }
+    .cta-section h2 { font-size: 34px; margin-bottom: 0.75rem; }
     .cta-sub { font-size: 15px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
 
     /* FOOTER */
-    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; }
-    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    footer { border-top: 0.5px solid var(--border); padding: 1.5rem; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
     .footer-logo { font-family: var(--serif); font-size: 13px; }
     .footer-copy { font-size: 12px; color: var(--text-secondary); }
 
     /* MOBILE */
     @media (max-width: 768px) {
-      h1 { font-size: 32px; }
+      h1 { font-size: 30px; }
       h2 { font-size: 24px; }
-      .hero { padding: 3rem 0; }
-      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero { padding: 2.5rem 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.5rem; }
       .section-pad { padding: 3rem 0; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
       .cards3 { grid-template-columns: 1fr; }
       .outcomes { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
+      .step { margin-right: -0.5px; }
       .step:first-child { border-radius: var(--radius-md) 0 0 0; }
-      .step:last-child { border-radius: 0 0 var(--radius-md) 0; margin-right: -0.5px; }
+      .step:nth-child(2) { border-radius: 0 var(--radius-md) 0 0; margin-right: 0; }
+      .step:nth-child(3) { border-radius: 0 0 0 var(--radius-md); }
+      .step:last-child { border-radius: 0 0 var(--radius-md) 0; margin-right: 0; }
       .vert-grid { grid-template-columns: 1fr 1fr; }
+      .vert { min-width: 0; }
       .stuck-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .about-photo { aspect-ratio: 4/3; object-position: center 20%; }
-      .nav-links { display: none; }
-      .nav-mobile { display: block; font-size: 13px; color: var(--text-secondary); }
+      .about-photo { aspect-ratio: 4/3; object-position: center 15%; max-height: 320px; }
     }
 
     @media (max-width: 480px) {
-      .wrap, .hero-inner { padding: 0 1.25rem; }
-      .steps { grid-template-columns: 1fr; }
       .vert-grid { grid-template-columns: 1fr; }
-      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .step:first-child { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+      .step:nth-child(2) { border-radius: 0; margin-right: -0.5px; }
+      .step:nth-child(3) { border-radius: 0; }
+      .step:last-child { border-radius: 0 0 var(--radius-md) var(--radius-md); margin-right: -0.5px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="logo">Pleasant Street <em>Advisory</em></a>
@@ -229,11 +285,22 @@
         <li><a href="#outcomes">Outcomes</a></li>
         <li><a href="#about">About</a></li>
       </ul>
-      <span class="nav-mobile">Menu</span>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
       <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="nav-cta">Book a call</a>
     </div>
   </nav>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="closeMenu()">What we do</a>
+    <a href="#outcomes" onclick="closeMenu()">Outcomes</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="mobile-book">Book a call →</a>
+  </div>
+
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
       <div>
@@ -267,6 +334,7 @@
     </div>
   </section>
 
+  <!-- SERVICES -->
   <section id="services">
     <div class="section-pad wrap">
       <p class="section-label">What we build</p>
@@ -292,6 +360,7 @@
     </div>
   </section>
 
+  <!-- OUTCOMES -->
   <section id="outcomes" class="section-alt">
     <div class="section-pad wrap">
       <p class="section-label">Selected outcomes</p>
@@ -317,6 +386,7 @@
     </div>
   </section>
 
+  <!-- HOW WE WORK -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">How we work</p>
@@ -346,6 +416,7 @@
     </div>
   </section>
 
+  <!-- VERTICALS -->
   <section class="section-alt">
     <div class="section-pad wrap">
       <p class="section-label">Where we focus</p>
@@ -375,6 +446,7 @@
     </div>
   </section>
 
+  <!-- WHERE COMPANIES GET STUCK -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">Who we help</p>
@@ -405,16 +477,18 @@
     </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about" class="section-alt">
     <div class="section-pad wrap">
       <div class="about-grid">
-        <div class="about-left">
+        <div>
           <img src="./avi.jpg" alt="Avi Meyers — Pleasant Street Advisory" class="about-photo" />
         </div>
         <div>
-          <p class="section-label">About</p>
-          <h2>Operator background.<br>Architect's lens.</h2>
-          <br>
+          <div class="about-title">
+            <p class="section-label">About</p>
+            <h2>Operator background.<br>Architect's lens.</h2>
+          </div>
           <p class="about-body"><strong>Pleasant Street Advisory is led by Avi Meyers</strong>, a revenue and GTM operator with 16+ years across fintech, crypto, and SaaS.</p>
           <p class="about-body">Avi has built and run revenue organizations scaling from $2M to $15M ARR, launched new business lines from $0 to $2M, and designed forward-deployed customer models that drove 115%+ net revenue retention.</p>
           <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: <strong>when the product works, but the revenue system doesn't yet.</strong></p>
@@ -431,6 +505,7 @@
     </div>
   </section>
 
+  <!-- CTA -->
   <section id="contact" class="cta-section">
     <div class="wrap">
       <h2>Ready to build the system?</h2>
@@ -439,12 +514,32 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <span class="footer-logo">Pleasant Street Advisory</span>
       <span class="footer-copy">© 2026 · pleasantstreet.co</span>
     </div>
   </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', function() {
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  </script>
 
 </body>
 </html>
