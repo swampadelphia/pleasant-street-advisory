@@ -28,147 +28,40 @@
     }
 
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      color: var(--text-primary);
-      background: var(--white);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
+    body { font-family: var(--sans); color: var(--text-primary); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* NAV */
-    nav {
-      border-bottom: 0.5px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-    }
-    .nav-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    nav { border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); z-index: 200; }
+    .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
     .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); flex-shrink: 0; }
     .logo em { font-style: italic; color: var(--text-secondary); }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text-primary); }
-    .nav-cta {
-      font-size: 13px;
-      font-family: var(--sans);
-      border: 0.5px solid var(--border-mid);
-      padding: 7px 18px;
-      border-radius: 100px;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-primary);
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+    .nav-cta { font-size: 13px; font-family: var(--sans); border: 0.5px solid var(--border-mid); padding: 7px 18px; border-radius: 100px; cursor: pointer; background: transparent; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-cta:hover { background: var(--bg-secondary); }
-
-    /* MOBILE MENU */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--text-primary);
-      transition: all 0.2s;
-    }
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      border-bottom: 0.5px solid var(--border);
-      z-index: 199;
-      padding: 1.5rem;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-primary); }
+    .mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: var(--white); border-bottom: 0.5px solid var(--border); z-index: 199; padding: 1.5rem; flex-direction: column; gap: 1.25rem; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 15px;
-      color: var(--text-primary);
-      text-decoration: none;
-      padding: 0.5rem 0;
-      border-bottom: 0.5px solid var(--border);
-    }
+    .mobile-menu a { font-size: 15px; color: var(--text-primary); text-decoration: none; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); }
     .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu .mobile-book {
-      display: inline-block;
-      margin-top: 0.5rem;
-      background: var(--text-primary);
-      color: var(--white);
-      padding: 12px 28px;
-      border-radius: 100px;
-      font-size: 14px;
-      text-align: center;
-    }
+    .mobile-menu .mobile-book { display: inline-block; margin-top: 0.5rem; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; text-align: center; }
 
     /* HERO */
-    .hero { padding: 4rem 0 4rem; border-bottom: 0.5px solid var(--border); }
-    .hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
+    .hero { padding: 4rem 0; border-bottom: 0.5px solid var(--border); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
     .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
     h1 { font-family: var(--serif); font-size: 42px; line-height: 1.12; margin-bottom: 1rem; }
     h1 em { font-style: italic; color: var(--text-secondary); }
     .hero-hook { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; }
     .hero-sub { font-size: 15px; line-height: 1.75; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
-    .btn-solid {
-      display: inline-block;
-      background: var(--text-primary);
-      color: var(--white);
-      padding: 12px 28px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-family: var(--sans);
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-    }
+    .btn-solid { display: inline-block; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; font-family: var(--sans); text-decoration: none; border: none; cursor: pointer; }
 
     /* STAT PANEL */
     .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; }
-    .stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1rem; }
     .stat { background: var(--white); padding: 1.1rem; }
     .stat-num { font-family: var(--serif); font-size: 24px; color: var(--text-primary); display: block; margin-bottom: 2px; }
     .stat-label { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
@@ -196,14 +89,30 @@
     .outcome-num { font-family: var(--serif); font-size: 26px; margin-bottom: 0.5rem; }
     .outcome-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* STEPS */
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 2rem; }
-    .step { padding: 1.5rem 1.25rem; border: 0.5px solid var(--border); margin-right: -0.5px; background: var(--white); }
-    .step:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
-    .step:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-right: 0; }
-    .step-n { font-family: var(--serif); font-size: 28px; color: var(--border-mid); display: block; margin-bottom: 0.5rem; }
-    .step-title { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
-    .step-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    /* PROCESS DIAGRAM */
+    .process { margin-top: 2.5rem; position: relative; }
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+    .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-top: 0.5px solid var(--border); position: relative; }
+    .process-step:last-child { border-bottom: 0.5px solid var(--border); }
+    .process-left { display: flex; flex-direction: column; align-items: flex-start; padding-top: 4px; }
+    .process-n { font-family: var(--serif); font-size: 42px; color: var(--border); line-height: 1; display: block; }
+    .process-right { }
+    .process-title { font-size: 18px; font-weight: 500; margin-bottom: 0.4rem; }
+    .process-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .process-tag { display: inline-block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 3px 10px; margin-bottom: 0.6rem; }
+
+    /* WHO WE HELP — DYNAMIC */
+    .transitions { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
+    .transition-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: center; padding: 1.5rem 0; border-top: 0.5px solid var(--border); }
+    .transition-row:last-child { border-bottom: 0.5px solid var(--border); }
+    .t-from { font-size: 14px; color: var(--text-secondary); }
+    .t-stage { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.25rem; }
+    .t-label { font-size: 16px; font-weight: 500; color: var(--text-primary); }
+    .t-arrow { font-family: var(--serif); font-size: 24px; color: var(--border-mid); text-align: center; flex-shrink: 0; }
+    .t-to { }
+    .t-to .t-stage { color: var(--text-secondary); }
+    .t-to .t-label { color: var(--text-primary); }
+    .t-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-top: 0.25rem; }
 
     /* VERTICALS */
     .vert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
@@ -211,13 +120,6 @@
     .vert-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
     .vert-name { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
     .vert-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
-
-    /* STUCK */
-    .stuck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
-    .stuck { background: var(--white); padding: 1.5rem; }
-    .stuck-arrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
-    .stuck-from { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.2rem; }
-    .stuck-to { font-size: 14px; font-weight: 500; color: var(--text-primary); }
 
     /* ABOUT */
     .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
@@ -227,6 +129,11 @@
     .about-title { margin-bottom: 1.5rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
     .tag { font-size: 12px; border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 5px 14px; color: var(--text-secondary); }
+
+    /* PULL QUOTE */
+    .pull-quote-section { padding: 4rem 0; border-bottom: 0.5px solid var(--border); }
+    .pull-quote { font-family: var(--serif); font-size: 28px; line-height: 1.35; color: var(--text-primary); max-width: 680px; }
+    .pull-quote em { font-style: italic; color: var(--text-secondary); }
 
     /* CTA */
     .cta-section { padding: 5rem 0; text-align: center; border-bottom: none; }
@@ -243,6 +150,7 @@
     @media (max-width: 768px) {
       h1 { font-size: 30px; }
       h2 { font-size: 24px; }
+      .pull-quote { font-size: 22px; }
       .hero { padding: 2.5rem 0; }
       .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.5rem; }
       .section-pad { padding: 3rem 0; }
@@ -251,32 +159,25 @@
       .hamburger { display: flex; }
       .cards3 { grid-template-columns: 1fr; }
       .outcomes { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .step { margin-right: -0.5px; }
-      .step:first-child { border-radius: var(--radius-md) 0 0 0; }
-      .step:nth-child(2) { border-radius: 0 var(--radius-md) 0 0; margin-right: 0; }
-      .step:nth-child(3) { border-radius: 0 0 0 var(--radius-md); }
-      .step:last-child { border-radius: 0 0 var(--radius-md) 0; margin-right: 0; }
       .vert-grid { grid-template-columns: 1fr 1fr; }
-      .vert { min-width: 0; }
-      .stuck-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .about-photo { aspect-ratio: 4/3; object-position: center 15%; max-height: 320px; }
+      .process-step { grid-template-columns: 48px 1fr; gap: 1.25rem; }
+      .process-n { font-size: 32px; }
+      .transition-row { grid-template-columns: 1fr auto 1fr; gap: 0.75rem; }
+      .t-label { font-size: 14px; }
     }
 
     @media (max-width: 480px) {
       .vert-grid { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr; }
-      .step:first-child { border-radius: var(--radius-md) var(--radius-md) 0 0; }
-      .step:nth-child(2) { border-radius: 0; margin-right: -0.5px; }
-      .step:nth-child(3) { border-radius: 0; }
-      .step:last-child { border-radius: 0 0 var(--radius-md) var(--radius-md); margin-right: -0.5px; }
+      .transition-row { grid-template-columns: 1fr; gap: 0.25rem; }
+      .t-arrow { display: none; }
+      .t-to { padding-left: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="logo">Pleasant Street <em>Advisory</em></a>
@@ -292,7 +193,6 @@
     </div>
   </nav>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services" onclick="closeMenu()">What we do</a>
     <a href="#outcomes" onclick="closeMenu()">Outcomes</a>
@@ -306,14 +206,14 @@
       <div>
         <p class="eyebrow">Revenue architecture · Seed → Series C</p>
         <h1>Designing revenue<br>engines for <em>growth<br>companies.</em></h1>
-        <p class="hero-hook">When the product works, but the revenue system doesn't yet.</p>
+        <p class="hero-hook">You've found the product. Now find the growth engine.</p>
         <p class="hero-sub">We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, crypto, AI, and developer platforms.</p>
         <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Work with us →</a>
       </div>
       <div class="stat-panel">
         <div class="stat-grid">
           <div class="stat">
-            <span class="stat-num">$17M+</span>
+            <span class="stat-num">$20M+</span>
             <span class="stat-label">Revenue built across roles</span>
           </div>
           <div class="stat">
@@ -386,31 +286,60 @@
     </div>
   </section>
 
-  <!-- HOW WE WORK -->
+  <!-- PULL QUOTE -->
+  <section class="pull-quote-section">
+    <div class="wrap">
+      <p class="pull-quote">Most revenue problems aren't sales problems. They're <em>architecture problems.</em></p>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK — PROCESS DIAGRAM -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">How we work</p>
       <h2>A structured engagement,<br>not an open retainer.</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-n">1</span>
-          <p class="step-title">Diagnose</p>
-          <p class="step-body">Revenue system audit across pipeline, retention, and expansion to find where the model is breaking.</p>
-        </div>
-        <div class="step">
-          <span class="step-n">2</span>
-          <p class="step-title">Design</p>
-          <p class="step-body">Build the architecture — ICP, lifecycle frameworks, and revenue motion — tailored to your stage.</p>
-        </div>
-        <div class="step">
-          <span class="step-n">3</span>
-          <p class="step-title">Install</p>
-          <p class="step-body">Implement the system with your team, including operating cadence and accountability structure.</p>
-        </div>
-        <div class="step">
-          <span class="step-n">4</span>
-          <p class="step-title">Scale</p>
-          <p class="step-body">Refine the model as the company grows and complexity increases.</p>
+      <div class="process">
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-left">
+              <span class="process-n">1</span>
+            </div>
+            <div class="process-right">
+              <span class="process-tag">Week 1–2</span>
+              <p class="process-title">Diagnose</p>
+              <p class="process-body">A revenue system audit across pipeline, retention, and expansion. We find where the model is breaking — and why it's breaking there.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-left">
+              <span class="process-n">2</span>
+            </div>
+            <div class="process-right">
+              <span class="process-tag">Week 3–4</span>
+              <p class="process-title">Design</p>
+              <p class="process-body">Build the architecture — ICP definition, lifecycle frameworks, and revenue motion — tailored specifically to your stage and market.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-left">
+              <span class="process-n">3</span>
+            </div>
+            <div class="process-right">
+              <span class="process-tag">Month 2</span>
+              <p class="process-title">Install</p>
+              <p class="process-body">Implement the system with your team. Establish operating cadence, accountability structure, and the playbooks your people will actually use.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-left">
+              <span class="process-n">4</span>
+            </div>
+            <div class="process-right">
+              <span class="process-tag">Ongoing</span>
+              <p class="process-title">Scale</p>
+              <p class="process-body">Refine the model as the company grows and complexity increases. The system evolves with you.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -446,32 +375,64 @@
     </div>
   </section>
 
-  <!-- WHERE COMPANIES GET STUCK -->
+  <!-- WHO WE HELP — DYNAMIC TRANSITIONS -->
   <section>
     <div class="section-pad wrap">
       <p class="section-label">Who we help</p>
       <h2>Where companies get stuck.</h2>
       <p class="section-sub">We build the system to get you to the next stage.</p>
-      <div class="stuck-grid">
-        <div class="stuck">
-          <span class="stuck-arrow">The transition</span>
-          <p class="stuck-from">Founder-led sales</p>
-          <p class="stuck-to">→ Repeatable team motion</p>
+      <div class="transitions">
+        <div class="transition-row">
+          <div class="t-from">
+            <span class="t-stage">Sales motion</span>
+            <p class="t-label">Founder-led sales</p>
+            <p class="t-desc">Closed on personality, not process</p>
+          </div>
+          <div class="t-arrow">→</div>
+          <div class="t-to">
+            <span class="t-stage">The build</span>
+            <p class="t-label">Repeatable team motion</p>
+            <p class="t-desc">A playbook the whole team can run</p>
+          </div>
         </div>
-        <div class="stuck">
-          <span class="stuck-arrow">The transition</span>
-          <p class="stuck-from">Early traction</p>
-          <p class="stuck-to">→ Structured pipeline</p>
+        <div class="transition-row">
+          <div class="t-from">
+            <span class="t-stage">Pipeline</span>
+            <p class="t-label">Early traction</p>
+            <p class="t-desc">Wins, but no pattern behind them</p>
+          </div>
+          <div class="t-arrow">→</div>
+          <div class="t-to">
+            <span class="t-stage">The build</span>
+            <p class="t-label">Structured pipeline</p>
+            <p class="t-desc">ICP defined, motion standardized</p>
+          </div>
         </div>
-        <div class="stuck">
-          <span class="stuck-arrow">The transition</span>
-          <p class="stuck-from">First customers</p>
-          <p class="stuck-to">→ Expansion engine</p>
+        <div class="transition-row">
+          <div class="t-from">
+            <span class="t-stage">Retention</span>
+            <p class="t-label">First customers</p>
+            <p class="t-desc">No system to keep or grow them</p>
+          </div>
+          <div class="t-arrow">→</div>
+          <div class="t-to">
+            <span class="t-stage">The build</span>
+            <p class="t-label">Expansion engine</p>
+            <p class="t-desc">Lifecycle model driving NRR above 100%</p>
+          </div>
         </div>
-        <div class="stuck">
-          <span class="stuck-arrow">The transition</span>
-          <p class="stuck-from">Growth</p>
-          <p class="stuck-to">→ Predictable revenue</p>
+        <div class="transition-row">
+          <div class="t-from">
+            <span class="t-stage">Revenue</span>
+            <p class="t-label">Inconsistent growth</p>
+            <p class="t-desc">Revenue that's hard to forecast</p>
+          </div>
+          <div class="t-arrow">→</div>
+          <div class="t-to">
+            <span class="t-stage">The build</span>
+            <p class="t-label">Predictable revenue</p>
+            <p class="t-desc">A system leadership can plan around</p>
+          </div>
         </div>
       </div>
     </div>
@@ -491,7 +452,7 @@
           </div>
           <p class="about-body"><strong>Pleasant Street Advisory is led by Avi Meyers</strong>, a revenue and GTM operator with 16+ years across fintech, crypto, and SaaS.</p>
           <p class="about-body">Avi has built and run revenue organizations scaling from $2M to $15M ARR, launched new business lines from $0 to $2M, and designed forward-deployed customer models that drove 115%+ net revenue retention.</p>
-          <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: <strong>when the product works, but the revenue system doesn't yet.</strong></p>
+          <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: <strong>when the product works, but the revenue system doesn't.</strong></p>
           <div class="tags">
             <span class="tag">GTM architecture</span>
             <span class="tag">Lifecycle design</span>
@@ -514,7 +475,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <span class="footer-logo">Pleasant Street Advisory</span>
@@ -525,15 +485,8 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-
-    hamburger.addEventListener('click', function() {
-      mobileMenu.classList.toggle('open');
-    });
-
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
-    }
-
+    hamburger.addEventListener('click', function() { mobileMenu.classList.toggle('open'); });
+    function closeMenu() { mobileMenu.classList.remove('open'); }
     document.addEventListener('click', function(e) {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
         mobileMenu.classList.remove('open');
