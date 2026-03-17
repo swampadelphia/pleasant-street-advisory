@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pleasant Street Advisory — Revenue Architecture for Growth Companies</title>
+  <meta name="description" content="We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, digital assets, AI, and developer platforms." />
+  <meta property="og:title" content="Pleasant Street Advisory" />
+  <meta property="og:description" content="Designing revenue engines for growth companies. Seed → Series C." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --bg-secondary: #f4f3f1;
+      --text-primary: #1a1a18;
+      --text-secondary: #6b6b67;
+      --border: rgba(26,26,24,0.12);
+      --border-mid: rgba(26,26,24,0.2);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text-primary); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* NAV */
+    nav { border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); z-index: 200; }
+    .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); flex-shrink: 0; }
+    .logo em { font-style: italic; color: var(--text-secondary); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta { font-size: 13px; font-family: var(--sans); border: 0.5px solid var(--border-mid); padding: 7px 18px; border-radius: 100px; cursor: pointer; background: transparent; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-cta:hover { background: var(--bg-secondary); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-primary); }
+    .mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: var(--white); border-bottom: 0.5px solid var(--border); z-index: 199; padding: 1.5rem; flex-direction: column; gap: 1.25rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 15px; color: var(--text-primary); text-decoration: none; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-book { display: inline-block; margin-top: 0.5rem; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; text-align: center; }
+
+    /* HERO */
+    .hero { padding: 4rem 0; border-bottom: 0.5px solid var(--border); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
+    h1 { font-family: var(--serif); font-size: 42px; line-height: 1.12; margin-bottom: 1rem; }
+    h1 em { font-style: italic; color: var(--text-secondary); }
+    .hero-hook { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; }
+    .hero-sub { font-size: 15px; line-height: 1.75; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
+    .btn-solid { display: inline-block; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; font-family: var(--sans); text-decoration: none; border: none; cursor: pointer; }
+
+    /* STAT PANEL */
+    .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1rem; }
+    .stat { background: var(--white); padding: 1.1rem; }
+    .stat-num { font-family: var(--serif); font-size: 24px; color: var(--text-primary); display: block; margin-bottom: 2px; }
+    .stat-label { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+    .panel-quote { font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; }
+
+    /* SECTIONS */
+    section { border-bottom: 0.5px solid var(--border); }
+    .section-pad { padding: 4rem 0; }
+    .section-alt { background: var(--bg-secondary); }
+    .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; margin-bottom: 0.4rem; }
+    .section-sub { font-size: 14px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
+
+    /* CARDS */
+    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .card { background: var(--white); padding: 1.5rem; }
+    .card-num { font-family: var(--serif); font-size: 34px; color: var(--border-mid); display: block; margin-bottom: 0.75rem; }
+    .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.5rem; }
+    .card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+    /* OUTCOMES */
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .outcome { background: var(--white); padding: 1.5rem; }
+    .outcome-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .outcome-num { font-family: var(--serif); font-size: 26px; margin-bottom: 0.5rem; }
+    .outcome-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* PULL QUOTE */
+    .pull-quote-section { padding: 5rem 0; border-bottom: 0.5px solid var(--border); background: var(--text-primary); }
+    .pull-quote { font-family: var(--serif); font-size: 36px; line-height: 1.25; color: var(--white); max-width: 720px; }
+    .pull-quote em { font-style: italic; color: rgba(255,255,255,0.5); }
+
+    /* PROCESS DIAGRAM */
+    .process { margin-top: 2.5rem; }
+    .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-top: 0.5px solid var(--border); }
+    .process-step:last-child { border-bottom: 0.5px solid var(--border); }
+    .process-n { font-family: var(--serif); font-size: 42px; color: var(--border); line-height: 1; display: block; padding-top: 4px; }
+    .process-tag { display: inline-block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 3px 10px; margin-bottom: 0.6rem; }
+    .process-title { font-size: 18px; font-weight: 500; margin-bottom: 0.4rem; }
+    .process-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* VERTICALS */
+    .vert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
+    .vert { background: var(--white); padding: 1.25rem; min-width: 0; }
+    .vert-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
+    .vert-name { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
+    .vert-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* WHO WE HELP — TRANSITIONS */
+    .transitions { margin-top: 2rem; }
+    .transition-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 0.5px solid var(--border); }
+    .transition-row:last-child { border-bottom: 0.5px solid var(--border); }
+    .t-cell { padding: 1.5rem 1.75rem; }
+    .t-cell.t-right { border-left: 0.5px solid var(--border); background: var(--bg-secondary); }
+    .t-stage { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.4rem; }
+    .t-label { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+    .t-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .t-connector { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.4rem; }
+    .t-right .t-label { color: var(--text-primary); }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+    .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: var(--radius-lg); border: 0.5px solid var(--border); display: block; }
+    .about-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); font-weight: 300; margin-bottom: 1rem; }
+    .about-body strong { color: var(--text-primary); font-weight: 500; }
+    .about-title { margin-bottom: 1.5rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+    .tag { font-size: 12px; border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 5px 14px; color: var(--text-secondary); }
+
+    /* CTA */
+    .cta-section { padding: 5rem 0; text-align: center; border-bottom: none; }
+    .cta-section h2 { font-size: 34px; margin-bottom: 0.75rem; }
+    .cta-sub { font-size: 15px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
+
+    /* FOOTER */
+    footer { border-top: 0.5px solid var(--border); padding: 1.5rem; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-logo { font-family: var(--serif); font-size: 13px; }
+    .footer-copy { font-size: 12px; color: var(--text-secondary); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      h1 { font-size: 30px; }
+      h2 { font-size: 24px; }
+      .pull-quote { font-size: 26px; }
+      .hero { padding: 2.5rem 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.5rem; }
+      .section-pad { padding: 3rem 0; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .cards3 { grid-template-columns: 1fr; }
+      .outcomes { grid-template-columns: 1fr; }
+      .vert-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { aspect-ratio: 4/3; object-position: center 15%; max-height: 320px; }
+      .process-step { grid-template-columns: 48px 1fr; gap: 1.25rem; }
+      .process-n { font-size: 32px; }
+      .transition-row { grid-template-columns: 1fr; }
+      .t-cell.t-right { border-left: none; border-top: 0.5px solid var(--border); }
+    }
+
+    @media (max-width: 480px) {
+      .vert-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">Pleasant Street <em>Advisory</em></a>
+      <ul class="nav-links">
+        <li><a href="#services">What we do</a></li>
+        <li><a href="#outcomes">Outcomes</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="nav-cta">Book a call</a>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="closeMenu()">What we do</a>
+    <a href="#outcomes" onclick="closeMenu()">Outcomes</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="mobile-book">Book a call →</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Revenue architecture · Seed through Series C</p>
+        <h1>Designing revenue<br>engines for <em>growth<br>companies.</em></h1>
+        <p class="hero-hook">You've found the product. Now find the growth engine.</p>
+        <p class="hero-sub">We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, digital assets, AI, and developer platforms.</p>
+        <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Work with us →</a>
+      </div>
+      <div class="stat-panel">
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="stat-num">$20M+</span>
+            <span class="stat-label">Revenue built across roles</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">250+</span>
+            <span class="stat-label">Accounts managed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">115%</span>
+            <span class="stat-label">Net revenue retention</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">16+</span>
+            <span class="stat-label">Years as GTM operator</span>
+          </div>
+        </div>
+        <p class="panel-quote">Turn ambiguity into predictable growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-pad wrap">
+      <p class="section-label">What we build</p>
+      <h2>Systems, not advice.</h2>
+      <p class="section-sub">Three disciplines. One revenue flywheel.</p>
+      <div class="cards3">
+        <div class="card">
+          <span class="card-num">01</span>
+          <p class="card-title">Sales architecture</p>
+          <p class="card-body">Pipeline design, ICP definition, and repeatable motion — built to survive the transition from founder-led to team-led selling.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">02</span>
+          <p class="card-title">Retention infrastructure</p>
+          <p class="card-body">Onboarding systems, health scoring, and CS frameworks that reduce churn before it compounds into a structural problem.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">03</span>
+          <p class="card-title">Expansion frameworks</p>
+          <p class="card-body">Upsell trigger identification, land-and-expand strategy, and NRR optimization — turning your existing base into your best growth channel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section id="outcomes" class="section-alt">
+    <div class="section-pad wrap">
+      <p class="section-label">Selected outcomes</p>
+      <h2>Revenue systems built in the field.</h2>
+      <p class="section-sub">Operator credentials, not advisory theory.</p>
+      <div class="outcomes">
+        <div class="outcome">
+          <p class="outcome-label">Revenue engine</p>
+          <p class="outcome-num">$2M → $15M ARR</p>
+          <p class="outcome-body">Designed and ran lifecycle revenue systems across sales, customer success, and expansion — as an operator, in the field.</p>
+        </div>
+        <div class="outcome">
+          <p class="outcome-label">New business line</p>
+          <p class="outcome-num">$0 → $2M</p>
+          <p class="outcome-body">Built GTM motion and partnership model for a net-new vertical from zero run rate.</p>
+        </div>
+        <div class="outcome">
+          <p class="outcome-label">Lifecycle optimization</p>
+          <p class="outcome-num">115% NRR</p>
+          <p class="outcome-body">Implemented expansion triggers, health scoring, and account frameworks driving above-benchmark retention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pull-quote-section">
+    <div class="wrap">
+      <p class="pull-quote">Most revenue problems aren't sales problems.<br>They're <em>architecture problems.</em></p>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section>
+    <div class="section-pad wrap">
+      <p class="section-label">How we work</p>
+      <h2>A structured engagement,<br>not an open retainer.</h2>
+      <div class="process">
+        <div class="process-step">
+          <span class="process-n">1</span>
+          <div>
+            <span class="process-tag">Week 1–2</span>
+            <p class="process-title">Diagnose</p>
+            <p class="process-body">A revenue system audit across pipeline, retention, and expansion. We find where the model is breaking — and why it's breaking there.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-n">2</span>
+          <div>
+            <span class="process-tag">Week 3–4</span>
+            <p class="process-title">Design</p>
+            <p class="process-body">Build the architecture — ICP definition, lifecycle frameworks, and revenue motion — tailored specifically to your stage and market.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-n">3</span>
+          <div>
+            <span class="process-tag">Month 2</span>
+            <p class="process-title">Install</p>
+            <p class="process-body">Implement the system with your team. Establish operating cadence, accountability structure, and the playbooks your people will actually use.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-n">4</span>
+          <div>
+            <span class="process-tag">Ongoing</span>
+            <p class="process-title">Scale</p>
+            <p class="process-body">Refine the model as the company grows and complexity increases. The system evolves with you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERTICALS -->
+  <section class="section-alt">
+    <div class="section-pad wrap">
+      <p class="section-label">Where we focus</p>
+      <h2>Built for complex products<br>in fast-moving markets.</h2>
+      <div class="vert-grid">
+        <div class="vert">
+          <span class="vert-tag">Fintech</span>
+          <p class="vert-name">Financial technology</p>
+          <p class="vert-desc">Payments, lending, infrastructure — where compliance complexity meets GTM urgency.</p>
+        </div>
+        <div class="vert">
+          <span class="vert-tag">Digital assets</span>
+          <p class="vert-name">Blockchain infrastructure</p>
+          <p class="vert-desc">Institutional adoption, enterprise sales, and the revenue motions that work in a market traditional playbooks weren't built for.</p>
+        </div>
+        <div class="vert">
+          <span class="vert-tag">AI & ML</span>
+          <p class="vert-name">Applied AI</p>
+          <p class="vert-desc">Selling technical products to non-technical buyers in markets that didn't exist two years ago.</p>
+        </div>
+        <div class="vert">
+          <span class="vert-tag">Dev tools</span>
+          <p class="vert-name">Developer platforms</p>
+          <p class="vert-desc">Bottom-up growth with top-down conversion — where PLG meets enterprise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE HELP -->
+  <section>
+    <div class="section-pad wrap">
+      <p class="section-label">Who we help</p>
+      <h2>Where companies get stuck.</h2>
+      <p class="section-sub">We build the system to get you to the next stage.</p>
+      <div class="transitions">
+        <div class="transition-row">
+          <div class="t-cell">
+            <span class="t-stage">Sales motion</span>
+            <p class="t-label">Founder-led sales</p>
+            <p class="t-desc">Closed on personality, not process</p>
+          </div>
+          <div class="t-cell t-right">
+            <span class="t-connector">→ The build</span>
+            <p class="t-label">Repeatable team motion</p>
+            <p class="t-desc">A playbook the whole team can run</p>
+          </div>
+        </div>
+        <div class="transition-row">
+          <div class="t-cell">
+            <span class="t-stage">Pipeline</span>
+            <p class="t-label">Early traction</p>
+            <p class="t-desc">Wins, but no pattern behind them</p>
+          </div>
+          <div class="t-cell t-right">
+            <span class="t-connector">→ The build</span>
+            <p class="t-label">Structured pipeline</p>
+            <p class="t-desc">ICP defined, motion standardized</p>
+          </div>
+        </div>
+        <div class="transition-row">
+          <div class="t-cell">
+            <span class="t-stage">Retention</span>
+            <p class="t-label">First customers</p>
+            <p class="t-desc">No system to keep or grow them</p>
+          </div>
+          <div class="t-cell t-right">
+            <span class="t-connector">→ The build</span>
+            <p class="t-label">Expansion engine</p>
+            <p class="t-desc">Lifecycle model driving NRR above 100%</p>
+          </div>
+        </div>
+        <div class="transition-row">
+          <div class="t-cell">
+            <span class="t-stage">Revenue</span>
+            <p class="t-label">Inconsistent growth</p>
+            <p class="t-desc">Revenue that's hard to forecast</p>
+          </div>
+          <div class="t-cell t-right">
+            <span class="t-connector">→ The build</span>
+            <p class="t-label">Predictable revenue</p>
+            <p class="t-desc">A system leadership can plan around</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section-alt">
+    <div class="section-pad wrap">
+      <div class="about-grid">
+        <div>
+          <img src="./avi.jpg" alt="Avi Meyers — Pleasant Street Advisory" class="about-photo" />
+        </div>
+        <div>
+          <div class="about-title">
+            <p class="section-label">About</p>
+            <h2>Operator background.<br>Architect's lens.</h2>
+          </div>
+          <p class="about-body"><strong>Pleasant Street Advisory is led by Avi Meyers</strong>, a revenue and GTM operator with 16+ years across fintech, digital assets, and SaaS.</p>
+          <p class="about-body">Avi has designed and run revenue organizations scaling from $2M to $15M ARR, launched new business lines from $0 to $2M, and built forward-deployed customer models that drove 115%+ net revenue retention — including at a leading blockchain infrastructure company navigating institutional adoption.</p>
+          <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: <strong>when the product works, but the revenue system doesn't.</strong></p>
+          <div class="tags">
+            <span class="tag">GTM architecture</span>
+            <span class="tag">Lifecycle design</span>
+            <span class="tag">Revenue operating models</span>
+            <span class="tag">CS frameworks</span>
+            <span class="tag">Pipeline systems</span>
+            <span class="tag">NRR growth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="cta-section">
+    <div class="wrap">
+      <h2>Ready to build the system?</h2>
+      <p class="cta-sub">In 30 minutes we can usually identify the biggest gap in your revenue system.</p>
+      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Schedule a discovery call →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Pleasant Street Advisory</span>
+      <span class="footer-copy">© 2026 · pleasantstreet.co</span>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', function() { mobileMenu.classList.toggle('open'); });
+    function closeMenu() { mobileMenu.classList.remove('open'); }
+    document.addEventListener('click', function(e) {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>
