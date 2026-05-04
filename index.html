@@ -1,478 +1,2069 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pleasant Street Advisory — Revenue Architecture for Growth Companies</title>
-  <meta name="description" content="We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, digital assets, AI, and developer platforms." />
-  <meta property="og:title" content="Pleasant Street Advisory" />
-  <meta property="og:description" content="Designing revenue engines for growth companies. Seed → Series C." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pleasant Street · Avi Meyers</title>
+<meta name="description" content="A working portfolio of products, frameworks, and writing on the commercial architecture of fintech and digital asset infrastructure." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* v8 kraft palette — exact match */
+    --paper: #f4f0e6;
+    --paper-deep: #ebe5d6;
+    --paper-card: #efe9da;
+    --ink: #14110d;
+    --ink-soft: #3a342c;
+    --ink-mute: #6e6557;
+    --ink-faint: #948a7c;
+    --tan: #a89066;
+    --tan-deep: #7d6740;
+    --rust: #9d4f29;
+    --green: #6b8e4e;
+    --rule: rgba(20, 17, 13, 0.14);
+    --rule-mid: rgba(20, 17, 13, 0.22);
+    --rule-soft: rgba(20, 17, 13, 0.08);
 
-    :root {
-      --white: #ffffff;
-      --bg-secondary: #f4f3f1;
-      --text-primary: #1a1a18;
-      --text-secondary: #6b6b67;
-      --border: rgba(26,26,24,0.12);
-      --border-mid: rgba(26,26,24,0.2);
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --mono: 'Roboto Mono', ui-monospace, 'SF Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  em { font-style: italic; color: var(--tan-deep); font-family: var(--serif); font-weight: 400; }
+  ::selection { background: rgba(168, 144, 102, 0.32); }
+
+  /* ── NAV ────────────────────────────────────────────────────────── */
+  nav {
+    border-bottom: 0.5px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: rgba(244, 240, 230, 0.94);
+    backdrop-filter: blur(8px);
+    z-index: 40;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: -0.035em;
+  }
+  .logo .street {
+    color: var(--tan-deep);
+    font-style: normal;
+    margin-left: 3px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 640px) {
+    .nav-inner { padding: 0 20px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.12em; }
+  }
+  @media (max-width: 480px) {
+    .nav-links a:nth-child(n+4) { display: none; }
+  }
+
+  /* ── WRAP ───────────────────────────────────────────────────────── */
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 640px) { .wrap { padding: 0 24px; } }
+
+  /* ── HERO (tiny, one-line) ─────────────────────────────────────── */
+  .hero {
+    padding: 36px 0 32px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .hero-line {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    max-width: 760px;
+    text-wrap: balance;
+  }
+  .hero-line em { font-style: italic; color: var(--tan-deep); font-family: var(--serif); }
+  .hero-line .lane {
+    color: var(--tan-deep);
+    font-style: normal;
+  }
+
+  /* V1 hero additions */
+  .v1-eyebrow {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .v1-eyebrow-name { color: var(--ink); }
+  .v1-eyebrow-sep { color: var(--ink-faint); }
+  .v1-dek {
+    margin-top: 14px;
+    max-width: 680px;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .v1-dek strong { font-weight: 500; color: var(--ink); }
+  .v1-currently {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .v1-currently-k {
+    color: var(--rust);
+    font-weight: 500;
+  }
+  .v1-currently-sep { color: var(--ink-faint); }
+  .v1-currently-mute { color: var(--ink-mute); }
+
+  /* ── SECTION HELPERS ────────────────────────────────────────────── */
+  .section { padding: 80px 0; }
+  /* unified — no .deep variant */
+  @media (max-width: 640px) { .section { padding: 56px 0; } }
+
+  .section-head {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .section-head-l {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .section-head-l .num { color: var(--tan-deep); margin-right: 10px; }
+  .section-head-l .k { color: var(--ink); }
+  .section-head-r {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* ── PORTFOLIO GRID ─────────────────────────────────────────────── */
+  .grid { display: grid; gap: 14px; }
+  .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 760px) {
+    .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+  }
+
+  .item {
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    padding: 28px 28px 22px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    cursor: pointer;
+    min-height: 240px;
+  }
+  .deep .item { background: var(--paper); }
+  .item:hover {
+    border-color: var(--rule-mid);
+    background: var(--paper-card);
+  }
+  .item.featured { background: var(--paper-card); }
+
+  .item-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item-tag .num {
+    color: var(--tan-deep);
+    border: 0.5px solid var(--tan);
+    padding: 2px 7px;
+    margin-right: 8px;
+  }
+  .item-tag .status {
+    font-size: 9.5px;
+    color: var(--green);
+  }
+  .item-tag .status.beta { color: var(--rust); }
+  .item-tag .status.draft { color: var(--ink-faint); }
+
+  .item-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .item-title em { font-style: italic; color: var(--tan-deep); }
+
+  .item-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .item-desc em { font-family: var(--sans); font-style: normal; color: var(--tan-deep); font-weight: 500; }
+
+  .item-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 14px;
+    border-top: 0.5px solid var(--rule-soft);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .item-foot .arrow {
+    color: var(--tan-deep);
+    transition: transform 0.2s;
+  }
+  .item:hover .item-foot .arrow { transform: translateX(4px); }
+
+  /* ── INDEX CARD (§ 04) ────────────────────────────────────────── */
+  .idx-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0;
+    background: var(--paper-card);
+    border: 0.5px solid var(--rule-mid);
+    overflow: hidden;
+    transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  }
+  .idx-card:hover {
+    background: var(--paper-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -22px rgba(20, 17, 13, 0.22);
+  }
+  @media (max-width: 880px) {
+    .idx-card { grid-template-columns: 1fr; }
+  }
+  .idx-card-l {
+    padding: 36px 36px 32px;
+    border-right: 0.5px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+  }
+  .idx-card-r {
+    padding: 28px;
+    background: var(--paper);
+    display: flex;
+    align-items: stretch;
+  }
+  @media (max-width: 880px) {
+    .idx-card-l { border-right: none; border-bottom: 0.5px solid var(--rule); padding: 28px; }
+    .idx-card-r { padding: 24px; }
+  }
+  .idx-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .idx-tag .num { color: var(--tan-deep); margin-right: 8px; }
+  .idx-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--green);
+    font-weight: 500;
+  }
+  .idx-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 0 0 rgba(107, 142, 78, 0.5);
+    animation: idxpulse 2.4s ease-out infinite;
+  }
+  @keyframes idxpulse {
+    0%   { box-shadow: 0 0 0 0 rgba(107, 142, 78, 0.55); }
+    70%  { box-shadow: 0 0 0 7px rgba(107, 142, 78, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(107, 142, 78, 0); }
+  }
+  .idx-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .idx-title em { font-family: var(--serif); font-style: italic; color: var(--tan-deep); }
+  .idx-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .idx-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0;
+    margin-top: auto;
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    margin-bottom: 18px;
+  }
+  .idx-meta-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .idx-meta-k {
+    color: var(--ink-faint);
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .idx-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .idx-foot-r {
+    color: var(--rust);
+    font-weight: 500;
+    transition: transform 0.18s, color 0.18s;
+  }
+  .idx-card:hover .idx-foot-r { transform: translateX(4px); color: var(--ink); }
+
+  /* Inset mockup of the actual dashboard */
+  .idx-mock {
+    width: 100%;
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    padding: 18px 20px 16px;
+    font-family: var(--sans);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 0 rgba(20,17,13,0.04);
+  }
+  .idx-mock-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--rule);
+    gap: 10px;
+  }
+  .idx-mock-mark {
+    font-family: var(--serif);
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .idx-mock-mark em { font-family: var(--serif); font-style: italic; color: var(--tan-deep); }
+  .idx-mock-no {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-style: normal;
+  }
+  .idx-mock-status {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .idx-mock-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--green);
+  }
+  .idx-mock-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .idx-mock-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .idx-mock-stat-k {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .idx-mock-pulse {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--green);
+    animation: idxpulse 2.4s ease-out infinite;
+    flex-shrink: 0;
+  }
+  .idx-mock-stat-v {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .idx-mock-stat-m {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .idx-mock-themes { display: flex; flex-direction: column; }
+  .idx-mock-theme {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 0.5px dashed var(--rule-soft);
+  }
+  .idx-mock-theme:last-child { border-bottom: none; }
+  .idx-mock-theme-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--tan-deep);
+  }
+  .idx-mock-theme-title {
+    font-family: var(--serif);
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .idx-mock-theme-title em { font-family: var(--serif); font-style: italic; color: var(--tan-deep); }
+  .idx-mock-theme-tag {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .idx-mock-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 0.5px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* ── ABOUT BLOCK ────────────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .about-meta {
+    border-top: 0.5px solid var(--ink);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .about-meta-line {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .about-meta-line .k { color: var(--tan-deep); }
+
+  .about-body p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body em { font-family: var(--sans); font-style: normal; color: var(--tan-deep); font-weight: 500; }
+
+  /* ── CONTACT ────────────────────────────────────────────────────── */
+  .contact {
+    text-align: center;
+    padding: 96px 0;
+  }
+  .contact-line {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    text-wrap: balance;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--ink);
+  }
+  .contact-line em { font-style: normal; color: var(--tan-deep); font-family: var(--serif); }
+  .contact-email {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    border-bottom: 0.5px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-email:hover { color: var(--tan-deep); border-color: var(--tan-deep); }
+  .contact-meta {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* ── COLOPHON ───────────────────────────────────────────────────── */
+  .colophon {
+    padding: 22px 0 28px;
+    border-top: 0.5px solid var(--rule);
+  }
+  .colophon-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .colophon-l, .colophon-r { display: flex; gap: 18px; flex-wrap: wrap; align-items: baseline; }
+  .colophon-l .ps {
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: -0.035em;
+    text-transform: none;
+    color: var(--ink);
+  }
+  .colophon-l .ps .street { color: var(--tan-deep); margin-left: 3px; }
+  .colophon-r a { color: var(--ink-mute); transition: color 0.15s; }
+  .colophon-r a:hover { color: var(--ink); }
+  @media (max-width: 540px) {
+    .colophon-inner { padding: 0 24px; flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ── REVEAL ─────────────────────────────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(8px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ── FRAMEWORK CARDS (with mini-diagrams) ──────────────────────── */
+  .fw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 0.5px solid var(--rule);
+    border-left: 0.5px solid var(--rule);
+  }
+  @media (max-width: 760px) {
+    .fw-grid { grid-template-columns: 1fr; }
+  }
+  .fw-card {
+    border-right: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    padding: 32px 32px 28px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 460px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--paper);
+  }
+  /* fw cards stay on paper — no deep variant */
+  .fw-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(168, 144, 102, 0) 0%, rgba(168, 144, 102, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .fw-card:hover::before { opacity: 1; }
+  .fw-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  .fw-series { color: var(--tan-deep); }
+  .fw-date { color: var(--ink-mute); }
+  .fw-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .fw-title em { color: var(--tan-deep); font-style: italic; }
+  .fw-dek {
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
+  }
+  .fw-dek em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--tan-deep);
+    font-size: 15px;
+  }
+  .fw-diagram {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0 24px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fw-card:hover .fw-diagram { transform: translateY(-3px); }
+  .fw-foot {
+    padding-top: 16px;
+    border-top: 0.5px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  .fw-read { color: var(--ink); transition: color 0.25s; }
+  .fw-card:hover .fw-read { color: var(--tan-deep); }
+  .fw-time { color: var(--ink-mute); }
+
+  /* mini stack diagram (AI GTM Stack) */
+  .mini-stack { width: 100%; max-width: 360px; }
+  .mini-stack-header {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+    font-weight: 500;
+  }
+  .mini-stack-header span:first-child { color: var(--ink-mute); }
+  .mini-stack-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 0.5px solid var(--rule-soft);
+    align-items: center;
+  }
+  .mini-stack-row:last-child { border-bottom: none; }
+  .mini-stack-layer { font-size: 10px; color: var(--ink); font-weight: 500; }
+  .mini-stack-cell { height: 6px; background: rgba(168, 144, 102, 0.25); border-radius: 1px; }
+  .mini-stack-cell.active { background: var(--tan-deep); }
+  .mini-stack-cell.empty {
+    background: transparent;
+    border-top: 0.5px dotted var(--rule-mid);
+    height: 1px;
+    margin-top: 3px;
+  }
+
+  /* mini 2x2 (Builders vs Scalers) */
+  .mini-2x2 {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 0.5px solid var(--rule-mid);
+  }
+  .mini-2x2-cell {
+    border-right: 0.5px solid var(--rule-mid);
+    border-bottom: 0.5px solid var(--rule-mid);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .mini-2x2-cell:nth-child(2),
+  .mini-2x2-cell:nth-child(4) { border-right: none; }
+  .mini-2x2-cell:nth-child(3),
+  .mini-2x2-cell:nth-child(4) { border-bottom: none; }
+  .mini-2x2-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .mini-2x2-title {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .label-scaler { color: var(--rust); }
+  .label-builder { color: #5a7849; }
+  .label-mismatch { color: var(--ink-mute); }
+  .label-coachable { color: #4a6a85; }
+
+  /* mini tree (Stablecoin Paradox) */
+  .mini-tree {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .tree-node {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink);
+    padding: 8px 18px;
+    border: 0.5px solid var(--rule-mid);
+    background: var(--paper);
+    letter-spacing: -0.01em;
+  }
+  .deep .tree-node { background: var(--paper-card); }
+  .tree-node em { color: var(--tan-deep); font-style: italic; }
+  .tree-node.root { font-size: 14px; padding: 10px 22px; }
+  .tree-line-vertical {
+    width: 0.5px;
+    height: 16px;
+    background: var(--rule-mid);
+  }
+  .tree-row { display: flex; gap: 20px; }
+
+  /* ── WRITING LIST (two-column tracks) ──────────────────────── */
+  .writing-tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 0.5px solid var(--rule);
+  }
+  @media (max-width: 760px) {
+    .writing-tracks { grid-template-columns: 1fr; }
+  }
+  .track {
+    border-right: 0.5px solid var(--rule);
+    padding: 28px 28px 8px;
+  }
+  .track:last-child { border-right: none; }
+  @media (max-width: 760px) {
+    .track { border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .track:last-child { border-bottom: none; }
+  }
+  .track-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .track-name { color: var(--ink); font-weight: 500; }
+  .track-name .num { color: var(--tan-deep); margin-right: 8px; }
+  .track-count { color: var(--ink-mute); }
+  .piece {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 14px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 0.5px solid var(--rule-soft);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s, padding 0.2s;
+    cursor: pointer;
+    margin: 0 -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .piece:last-child { border-bottom: none; }
+  .piece:hover {
+    background: rgba(168, 144, 102, 0.04);
+  }
+  .piece.is-forthcoming { cursor: default; }
+  .piece.is-forthcoming:hover { background: transparent; }
+  .piece-num {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+    padding-top: 5px;
+  }
+  .piece-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .piece-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .piece-title em { color: var(--tan-deep); font-style: italic; }
+  .piece-dek {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .piece.has-aux { border-bottom: none; padding-bottom: 4px; }
+  .piece-aux-row {
+    padding: 0 8px 14px 54px;
+    margin: 0 -8px;
+  }
+  .piece-aux-row a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+    transition: color 0.15s;
+  }
+  .piece-aux-row a:hover { color: var(--rust); }
+  .piece-meta {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 4px;
+  }
+  .piece-meta .dot { color: var(--ink-faint); margin: 0 6px; }
+  .piece-status {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding-top: 5px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .piece-status.draft { color: var(--rust); }
+  .piece-arrow {
+    color: var(--tan-deep);
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0;
+    padding-top: 5px;
+  }
+  .piece:hover .piece-arrow { opacity: 1; transform: translateX(3px); }
+  @media (max-width: 480px) {
+    .piece { grid-template-columns: 26px 1fr; gap: 10px; }
+    .piece-status, .piece-arrow { grid-column: 2; text-align: left; padding-top: 0; }
+  }
+
+  /* ── PRODUCT MOCKUPS (Building section) ──────────────────────── */
+  .product-mockup {
+    margin-top: 20px;
+    border: 0.5px solid var(--rule);
+    background: var(--paper-deep);
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    position: relative;
+  }
+
+  /* Slate mockup: PDF + chat split */
+  .slate-mock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+  }
+  .slate-mock-pdf {
+    background: var(--paper);
+    border-right: 0.5px solid var(--rule);
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .slate-mock-pdf-label {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .slate-mock-line {
+    height: 4px;
+    background: rgba(20, 17, 13, 0.10);
+    border-radius: 1px;
+  }
+  .slate-mock-line.short { width: 70%; }
+  .slate-mock-line.shorter { width: 45%; }
+  .slate-mock-pageno {
+    margin-top: auto;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 7px;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+  }
+  .slate-mock-chat {
+    background: var(--paper-card);
+    padding: 10px 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .slate-mock-chat-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--rule-soft);
+    margin-bottom: 4px;
+  }
+  .slate-mock-avatar {
+    width: 14px; height: 14px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 8px;
+    color: var(--paper);
+    font-weight: 700;
+  }
+  .slate-mock-chat-name {
+    font-family: var(--sans);
+    font-size: 8.5px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .slate-mock-chat-role {
+    font-family: var(--mono);
+    font-size: 6.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-left: auto;
+  }
+  .slate-mock-bubble {
+    background: var(--paper);
+    border: 0.5px solid var(--rule-soft);
+    border-radius: 6px;
+    padding: 5px 7px;
+    max-width: 78%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .slate-mock-bubble.user {
+    background: var(--green);
+    border-color: var(--green);
+    align-self: flex-end;
+    animation: slateSlideIn 0.5s ease-out 1.2s both;
+  }
+  .slate-mock-bubble-line {
+    height: 3px;
+    background: rgba(20, 17, 13, 0.18);
+    border-radius: 1px;
+  }
+  .slate-mock-bubble.user .slate-mock-bubble-line {
+    background: rgba(20, 17, 13, 0.35);
+  }
+  .slate-mock-bubble-line.short { width: 60%; }
+  .slate-mock-bubble-line.shorter { width: 40%; }
+  .slate-mock-input {
+    margin-top: auto;
+    background: var(--paper);
+    border: 0.5px solid var(--rule-soft);
+    border-radius: 12px;
+    padding: 4px 8px 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--sans);
+    font-size: 7px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .slate-mock-send {
+    width: 12px; height: 12px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+  @keyframes slateSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slateTyping {
+    0%, 60%, 100% { opacity: 0.5; }
+    30% { opacity: 1; }
+  }
+  .slate-mock-typing {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    padding: 5px 7px;
+  }
+  .slate-mock-typing span {
+    width: 4px; height: 4px;
+    background: var(--ink-faint);
+    border-radius: 50%;
+    animation: slateTyping 1.4s ease-in-out infinite;
+  }
+  .slate-mock-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .slate-mock-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Waypoint mockup: research → diagnosis frame */
+  /* Waypoint mockup: light kraft theme matching the actual product */
+  .waypoint-mock {
+    background: var(--paper);
+    color: var(--ink);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .waypoint-mock-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 0.5px solid var(--rule);
+    background: var(--paper-card);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .waypoint-mock-mark {
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: -0.025em;
+    text-transform: none;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .waypoint-mock-mark .street { color: var(--tan-deep); margin-left: 1px; }
+  .waypoint-mock-version { color: var(--ink-faint); font-size: 7px; letter-spacing: 0.12em; }
+  .waypoint-mock-status {
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+  }
+  .waypoint-mock-status::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .waypoint-mock-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 12px;
+    gap: 10px;
+  }
+  /* Company header */
+  .waypoint-mock-company {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--rule-soft);
+  }
+  .waypoint-mock-company-name {
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .waypoint-mock-company-meta {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+  }
+  /* Diagnosis card */
+  .waypoint-mock-diag {
+    background: var(--paper-card);
+    border: 0.5px solid var(--rule-soft);
+    border-radius: 3px;
+    padding: 9px 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .waypoint-mock-eyebrow {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .waypoint-mock-eyebrow .num {
+    color: var(--ink-faint);
+    border: 0.5px solid var(--rule);
+    padding: 1px 4px;
+  }
+  .waypoint-mock-title {
+    font-family: var(--serif);
+    font-size: clamp(13px, 1.8vw, 16px);
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+  .waypoint-mock-title em { color: var(--tan-deep); font-style: italic; }
+  /* Signals list */
+  .waypoint-mock-signals {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .waypoint-mock-signal {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--ink-soft);
+    display: grid;
+    grid-template-columns: 12px 1fr auto;
+    gap: 6px;
+    align-items: baseline;
+    padding: 4px 0;
+    border-bottom: 0.5px solid var(--rule-soft);
+  }
+  .waypoint-mock-signal:last-child { border-bottom: none; }
+  .waypoint-mock-signal-icon { color: var(--green); font-weight: 600; }
+  .waypoint-mock-signal-source {
+    font-size: 6.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .waypoint-mock-progress {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1.5px;
+    background: rgba(168, 144, 102, 0.12);
+    overflow: hidden;
+  }
+  .waypoint-mock-progress::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--tan-deep), transparent);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    animation: waypointShimmer 3s linear infinite;
+  }
+  @keyframes waypointShimmer {
+    0% { background-position: -50% 0; }
+    100% { background-position: 150% 0; }
+  }
+
+  @media (max-width: 600px) {
+    .slate-mock-chat-role { display: none; }
+  }
+  .mini-pendulum {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .pend-trio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: end;
+  }
+  .pend-trio-cell {
+    aspect-ratio: 1;
+    position: relative;
+    padding: 4px;
+  }
+  .pend-svg { width: 100%; height: 100%; overflow: visible; }
+  .pend-arc {
+    fill: none;
+    stroke: var(--rule-mid);
+    stroke-width: 0.5;
+    stroke-dasharray: 2 3;
+  }
+  .pend-anchor { fill: var(--ink); }
+  .pend-rod { stroke: var(--ink); stroke-width: 1.2; }
+  .pend-rod-rest { stroke: var(--rule-mid); stroke-width: 0.5; stroke-dasharray: 2 2; }
+  .pend-bob-rest { fill: none; stroke: var(--rule-mid); stroke-width: 0.5; }
+
+  @keyframes pendSwingTight {
+    0%, 100% { transform: rotate(-22deg); }
+    50% { transform: rotate(22deg); }
+  }
+  @keyframes pendSwingSlow {
+    0%, 100% { transform: rotate(-9deg); }
+    50% { transform: rotate(9deg); }
+  }
+  @keyframes pendSwingRestored {
+    0%, 100% { transform: rotate(-18deg); }
+    50% { transform: rotate(18deg); }
+  }
+  .pend-swinger { transform-origin: 50px 12px; }
+  .pend-swing-tight   { animation: pendSwingTight 1.6s ease-in-out infinite; }
+  .pend-swing-slow    { animation: pendSwingSlow 3.2s ease-in-out infinite; }
+  .pend-swing-restored { animation: pendSwingRestored 2.0s ease-in-out infinite; }
+
+  .pend-stage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 12px;
+    border-top: 0.5px solid var(--rule);
+    padding-top: 12px;
+  }
+  .pend-stage-cell {
+    text-align: center;
+    padding: 0 4px;
+  }
+  .pend-stage-cell .pend-label {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .pend-stage-cell .pend-state {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .pend-stage-cell .pend-state em { color: var(--tan-deep); font-style: italic; }
+  .label-early { color: var(--rust); }
+  .label-growth { color: #8a6a18; }
+  .label-working { color: #5a7849; }
+
+  /* ── DIAGRAM ANIMATIONS (subtle, scroll-triggered) ──────────── */
+  /* Stack: cells brighten in stage sequence */
+  @keyframes stackPulseS1 {
+    0%, 8%, 100% { background: var(--tan-deep); }
+    25%, 75% { background: rgba(168, 144, 102, 0.25); }
+  }
+  @keyframes stackPulseS2 {
+    0%, 75%, 100% { background: rgba(168, 144, 102, 0.25); }
+    25%, 50% { background: var(--tan-deep); }
+  }
+  @keyframes stackPulseS3 {
+    0%, 100% { background: rgba(168, 144, 102, 0.25); }
+    50%, 75% { background: var(--tan-deep); }
+  }
+  .fw-card .mini-stack-cell.stage-pulse-1 { animation: stackPulseS1 8s ease-in-out infinite; }
+  .fw-card .mini-stack-cell.stage-pulse-2 { animation: stackPulseS2 8s ease-in-out infinite; }
+  .fw-card .mini-stack-cell.stage-pulse-3 { animation: stackPulseS3 8s ease-in-out infinite; }
+
+  /* 2x2: subtle quadrant scan */
+  @keyframes quadScan {
+    0%, 100% { background: transparent; }
+    25% { background: rgba(168, 144, 102, 0.10); }
+    50% { background: transparent; }
+  }
+  .fw-card .mini-2x2-cell.scan-1 { animation: quadScan 10s ease-in-out infinite; }
+  .fw-card .mini-2x2-cell.scan-2 { animation: quadScan 10s ease-in-out infinite 2.5s; }
+  .fw-card .mini-2x2-cell.scan-3 { animation: quadScan 10s ease-in-out infinite 5s; }
+  .fw-card .mini-2x2-cell.scan-4 { animation: quadScan 10s ease-in-out infinite 7.5s; }
+
+  /* Tree: branches pulse subtly */
+  @keyframes treeBranchPulse {
+    0%, 22%, 100% {
+      border-color: var(--rule-mid);
+      color: var(--ink);
+      background: transparent;
     }
-
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); color: var(--text-primary); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-
-    /* NAV */
-    nav { border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); z-index: 200; }
-    .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-family: var(--serif); font-size: 16px; text-decoration: none; color: var(--text-primary); flex-shrink: 0; }
-    .logo em { font-style: italic; color: var(--text-secondary); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text-primary); }
-    .nav-cta { font-size: 13px; font-family: var(--sans); border: 0.5px solid var(--border-mid); padding: 7px 18px; border-radius: 100px; cursor: pointer; background: transparent; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
-    .nav-cta:hover { background: var(--bg-secondary); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-primary); }
-    .mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: var(--white); border-bottom: 0.5px solid var(--border); z-index: 199; padding: 1.5rem; flex-direction: column; gap: 1.25rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 15px; color: var(--text-primary); text-decoration: none; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu .mobile-book { display: inline-block; margin-top: 0.5rem; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; text-align: center; }
-
-    /* HERO */
-    .hero { padding: 4rem 0; border-bottom: 0.5px solid var(--border); }
-    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-    .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
-    h1 { font-family: var(--serif); font-size: 42px; line-height: 1.12; margin-bottom: 1rem; }
-    h1 em { font-style: italic; color: var(--text-secondary); }
-    .hero-hook { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; }
-    .hero-sub { font-size: 15px; line-height: 1.75; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
-    .btn-solid { display: inline-block; background: var(--text-primary); color: var(--white); padding: 12px 28px; border-radius: 100px; font-size: 14px; font-family: var(--sans); text-decoration: none; border: none; cursor: pointer; }
-
-    /* STAT PANEL */
-    .stat-panel { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; }
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1rem; }
-    .stat { background: var(--white); padding: 1.1rem; }
-    .stat-num { font-family: var(--serif); font-size: 24px; color: var(--text-primary); display: block; margin-bottom: 2px; }
-    .stat-label { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
-    .panel-quote { font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; }
-
-    /* SECTIONS */
-    section { border-bottom: 0.5px solid var(--border); }
-    .section-pad { padding: 4rem 0; }
-    .section-alt { background: var(--bg-secondary); }
-    .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem; }
-    h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; margin-bottom: 0.4rem; }
-    .section-sub { font-size: 14px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
-
-    /* CARDS */
-    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .card { background: var(--white); padding: 1.5rem; }
-    .card-num { font-family: var(--serif); font-size: 34px; color: var(--border-mid); display: block; margin-bottom: 0.75rem; }
-    .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.5rem; }
-    .card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
-
-    /* OUTCOMES */
-    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .outcome { background: var(--white); padding: 1.5rem; }
-    .outcome-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 0.6rem; }
-    .outcome-num { font-family: var(--serif); font-size: 26px; margin-bottom: 0.5rem; }
-    .outcome-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* PULL QUOTE */
-    .pull-quote-section { padding: 5rem 0; border-bottom: 0.5px solid var(--border); background: var(--text-primary); }
-    .pull-quote { font-family: var(--serif); font-size: 36px; line-height: 1.35; color: var(--white); max-width: 720px; }
-    .pull-quote br { display: block; margin-bottom: 0.2rem; }
-    .pull-quote em { font-style: italic; color: rgba(255,255,255,0.5); }
-
-    /* PROCESS DIAGRAM */
-    .process { margin-top: 2.5rem; }
-    .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-top: 0.5px solid var(--border); }
-    .process-step:last-child { border-bottom: 0.5px solid var(--border); }
-    .process-n { font-family: var(--serif); font-size: 42px; color: var(--border); line-height: 1; display: block; padding-top: 4px; }
-    .process-tag { display: inline-block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 3px 10px; margin-bottom: 0.6rem; }
-    .process-title { font-size: 18px; font-weight: 500; margin-bottom: 0.4rem; }
-    .process-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
-
-    /* VERTICALS */
-    .vert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
-    .vert { background: var(--white); padding: 1.25rem; min-width: 0; }
-    .vert-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
-    .vert-name { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
-    .vert-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
-
-    /* WHO WE HELP — TRANSITIONS */
-    .transitions { margin-top: 2rem; }
-    .transition-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 0.5px solid var(--border); }
-    .transition-row:last-child { border-bottom: 0.5px solid var(--border); }
-    .t-cell { padding: 1.5rem 1.75rem; }
-    .t-cell.t-right { border-left: 0.5px solid var(--border); background: var(--bg-secondary); }
-    .t-stage { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.4rem; }
-    .t-label { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
-    .t-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-    .t-connector { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.4rem; }
-    .t-right .t-label { color: var(--text-primary); }
-
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
-    .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: var(--radius-lg); border: 0.5px solid var(--border); display: block; }
-    .about-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); font-weight: 300; margin-bottom: 1rem; }
-    .about-body strong { color: var(--text-primary); font-weight: 500; }
-    .about-title { margin-bottom: 1.5rem; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
-    .tag { font-size: 12px; border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 5px 14px; color: var(--text-secondary); }
-
-    /* CTA */
-    .cta-section { padding: 5rem 0; text-align: center; border-bottom: none; }
-    .cta-section h2 { font-size: 34px; margin-bottom: 0.75rem; }
-    .cta-sub { font-size: 15px; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
-
-    /* FOOTER */
-    footer { border-top: 0.5px solid var(--border); padding: 1.5rem; }
-    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-    .footer-logo { font-family: var(--serif); font-size: 13px; }
-    .footer-copy { font-size: 12px; color: var(--text-secondary); }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      h1 { font-size: 30px; }
-      h2 { font-size: 24px; }
-      .pull-quote { font-size: 26px; }
-      .hero { padding: 2.5rem 0; }
-      .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.75rem; }
-      .section-pad { padding: 3rem 0; }
-      .wrap { padding: 0 1.75rem; }
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .cards3 { grid-template-columns: 1fr; }
-      .outcomes { grid-template-columns: 1fr; }
-      .vert-grid { grid-template-columns: 1fr 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .about-photo { aspect-ratio: 4/3; object-position: center 15%; max-height: 320px; }
-      .process-step { grid-template-columns: 48px 1fr; gap: 1.25rem; }
-      .process-n { font-size: 32px; }
-      .transition-row { grid-template-columns: 1fr; }
-      .t-cell.t-right { border-left: none; border-top: 0.5px solid var(--border); }
+    8%, 14% {
+      border-color: var(--tan-deep);
+      color: var(--tan-deep);
+      background: rgba(168, 144, 102, 0.12);
     }
+  }
+  .fw-card .tree-node.branch-1 { animation: treeBranchPulse 9s ease-in-out infinite; }
+  .fw-card .tree-node.branch-2 { animation: treeBranchPulse 9s ease-in-out infinite 3s; }
+  .fw-card .tree-node.branch-3 { animation: treeBranchPulse 9s ease-in-out infinite 6s; }
 
-    @media (max-width: 480px) {
-      .vert-grid { grid-template-columns: 1fr; }
+  /* Reduced motion: kill all animations */
+  @media (prefers-reduced-motion: reduce) {
+    .pend-swing-tight, .pend-swing-slow, .pend-swing-restored,
+    .fw-card .mini-stack-cell, .fw-card .mini-2x2-cell, .fw-card .tree-node {
+      animation: none !important;
     }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="nav-inner">
-      <a href="#" class="logo">Pleasant Street <em>Advisory</em></a>
-      <ul class="nav-links">
-        <li><a href="#services">What we do</a></li>
-        <li><a href="#outcomes">Outcomes</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="nav-cta">Book a call</a>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">Pleasant<span class="street">Street</span></a>
+    <div class="nav-links">
+      <a href="#writing">Writing</a>
+      <a href="#frameworks">Frameworks</a>
+      <a href="#products">Products</a>
+      <a href="#reports">Reports</a>
+      <a href="#about">About</a>
     </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#services" onclick="closeMenu()">What we do</a>
-    <a href="#outcomes" onclick="closeMenu()">Outcomes</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="mobile-book">Book a call →</a>
   </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <p class="eyebrow">Revenue architecture · Seed through Series C</p>
-        <h1>Designing revenue<br>engines for <em>growth<br>companies.</em></h1>
-        <p class="hero-hook">You've found the product. Now find the growth engine.</p>
-        <p class="hero-sub">We design the systems behind durable revenue — sales motion, retention infrastructure, and expansion architecture — for startups in fintech, digital assets, AI, and developer platforms.</p>
-        <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Work with us →</a>
-      </div>
-      <div class="stat-panel">
-        <div class="stat-grid">
-          <div class="stat">
-            <span class="stat-num">$20M+</span>
-            <span class="stat-label">Revenue built across roles</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">250+</span>
-            <span class="stat-label">Accounts managed</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">115%</span>
-            <span class="stat-label">Net revenue retention</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">16+</span>
-            <span class="stat-label">Years as GTM operator</span>
-          </div>
-        </div>
-        <p class="panel-quote">Turn ambiguity into predictable growth.</p>
-      </div>
+<!-- HERO — V1.1: quiet masthead -->
+<section class="hero">
+  <div class="wrap">
+    <div class="v1-eyebrow">
+      <span class="v1-eyebrow-name">Avi Meyers</span>
+      <span class="v1-eyebrow-sep">/</span>
+      <span>Boston</span>
     </div>
-  </section>
+    <p class="hero-line">Writing, frameworks, and tools on the commercial architecture of <span class="lane">fintech, digital assets, and AI-native GTM.</span></p>
+  </div>
+</section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-pad wrap">
-      <p class="section-label">What we build</p>
-      <h2>Systems, not advice.</h2>
-      <p class="section-sub">Three disciplines. One revenue flywheel.</p>
-      <div class="cards3">
-        <div class="card">
-          <span class="card-num">01</span>
-          <p class="card-title">Sales architecture</p>
-          <p class="card-body">Pipeline design, ICP definition, and repeatable motion — built to survive the transition from founder-led to team-led selling.</p>
+<!-- WRITING -->
+<section class="section" id="writing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-head-l"><span class="num">§ 01</span><span class="k">Writing</span></span>
+      <span class="section-head-r">08 pieces &middot; GTM + Digital Assets</span>
+    </div>
+
+    <div class="writing-tracks">
+
+      <!-- GTM TRACK -->
+      <div class="track">
+        <div class="track-head">
+          <span class="track-name"><span class="num">A</span>GTM Series</span>
+          <span class="track-count">04 pieces</span>
         </div>
-        <div class="card">
-          <span class="card-num">02</span>
-          <p class="card-title">Retention infrastructure</p>
-          <p class="card-body">Onboarding systems, health scoring, and CS frameworks that reduce churn before it compounds into a structural problem.</p>
-        </div>
-        <div class="card">
-          <span class="card-num">03</span>
-          <p class="card-title">Expansion frameworks</p>
-          <p class="card-body">Upsell trigger identification, land-and-expand strategy, and NRR optimization — turning your existing base into your best growth channel.</p>
-        </div>
+
+        <a href="https://pleasantstreet.substack.com/p/the-modern-gtm-stack-by-stage" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">04</div>
+          <div class="piece-body">
+            <div class="piece-title">The Modern GTM Stack, By Stage</div>
+            <div class="piece-dek">Five layers, four stages. What to install, what to skip, and what breaks when you buy ahead of your stage.</div>
+            <div class="piece-meta">May 4, 2026 <span class="dot">·</span> 14 min</div>
+          </div>
+          <div class="piece-status">Latest</div>
+        </a>
+
+        <a href="https://pleasantstreet.substack.com/p/builders-vs-scalers" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">03</div>
+          <div class="piece-body">
+            <div class="piece-title">Builders vs. Scalers</div>
+            <div class="piece-dek">Why your first GTM hire fails. The founder motion and the repeatable motion are different skills.</div>
+            <div class="piece-meta">Mar 31, 2026 <span class="dot">·</span> 9 min</div>
+          </div>
+          <div class="piece-status">Published</div>
+        </a>
+
+        <a href="https://pleasantstreet.substack.com/p/the-sales-product-pendulum" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">02</div>
+          <div class="piece-body">
+            <div class="piece-title">The Sales–Product Pendulum</div>
+            <div class="piece-dek">How to turn customer signal into growth. Sales and product don't usually break all at once. They drift.</div>
+            <div class="piece-meta">Mar 24, 2026 <span class="dot">·</span> 8 min</div>
+          </div>
+          <div class="piece-status">Published</div>
+        </a>
+
+        <a href="https://pleasantstreet.substack.com/p/time-lord-and-the-elusive-orb" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">01</div>
+          <div class="piece-body">
+            <div class="piece-title">Time Lord and the Elusive Orb</div>
+            <div class="piece-dek">On chasing what's out of reach.</div>
+            <div class="piece-meta">Nov 4, 2025 <span class="dot">·</span> 7 min</div>
+          </div>
+          <div class="piece-status">Published</div>
+        </a>
       </div>
-    </div>
-  </section>
 
-  <!-- OUTCOMES -->
-  <section id="outcomes" class="section-alt">
-    <div class="section-pad wrap">
-      <p class="section-label">Selected outcomes</p>
-      <h2>Revenue systems built in the field.</h2>
-      <p class="section-sub">Operator credentials, not advisory theory.</p>
-      <div class="outcomes">
-        <div class="outcome">
-          <p class="outcome-label">Revenue engine</p>
-          <p class="outcome-num">$2M → $15M ARR</p>
-          <p class="outcome-body">Served as GM across a scaling blockchain infrastructure company — designed and ran the full revenue operation across sales, CS, and account management.</p>
+      <!-- DIGITAL ASSETS TRACK -->
+      <div class="track">
+        <div class="track-head">
+          <span class="track-name"><span class="num">B</span>Digital Assets Series</span>
+          <span class="track-count">04 pieces</span>
         </div>
-        <div class="outcome">
-          <p class="outcome-label">New business line</p>
-          <p class="outcome-num">$0 → $2M</p>
-          <p class="outcome-body">Founded and built a net-new business line from scratch — ICP definition, GTM motion, and partnership model. Zero to run rate as operator, not advisor.</p>
-        </div>
-        <div class="outcome">
-          <p class="outcome-label">Lifecycle optimization</p>
-          <p class="outcome-num">115% NRR</p>
-          <p class="outcome-body">Implemented QBR processes, expansion targets, health scoring, and account frameworks driving above-benchmark retention.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PULL QUOTE -->
-  <section class="pull-quote-section">
-    <div class="wrap">
-      <p class="pull-quote">Most revenue problems aren't sales problems.<br>They're <em>architecture problems.</em></p>
-    </div>
-  </section>
+        <div class="piece is-forthcoming">
+          <div class="piece-num">04</div>
+          <div class="piece-body">
+            <div class="piece-title">The Platform Question</div>
+            <div class="piece-dek">Build, Partner, Adopt at the infrastructure layer. Why most "platforms" in crypto infrastructure are actually stacked products.</div>
+            <div class="piece-meta">Q2 / 2026 <span class="dot">·</span> 11 min</div>
+          </div>
+          <div class="piece-status draft">Forthcoming</div>
+        </div>
 
-  <!-- HOW WE WORK -->
-  <section>
-    <div class="section-pad wrap">
-      <p class="section-label">How we work</p>
-      <h2>A structured engagement,<br>not an open retainer.</h2>
-      <div class="process">
-        <div class="process-step">
-          <span class="process-n">1</span>
-          <div>
-            <span class="process-tag">Week 1–2</span>
-            <p class="process-title">Diagnose</p>
-            <p class="process-body">A revenue system audit across pipeline, retention, and expansion. We find where the model is breaking — and why it's breaking there.</p>
+        <a href="https://pleasantstreet.substack.com/p/the-stablecoin-paradox" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">03</div>
+          <div class="piece-body">
+            <div class="piece-title">The Stablecoin Paradox</div>
+            <div class="piece-dek">Build, Partner, or Adopt. Everyone wants a stablecoin. Almost nobody wants to be in the stablecoin business.</div>
+            <div class="piece-meta">Jan 20, 2026 <span class="dot">·</span> 11 min</div>
           </div>
-        </div>
-        <div class="process-step">
-          <span class="process-n">2</span>
-          <div>
-            <span class="process-tag">Week 3–4</span>
-            <p class="process-title">Design</p>
-            <p class="process-body">Build the architecture — ICP definition, lifecycle frameworks, and revenue motion — tailored specifically to your stage and market.</p>
+          <div class="piece-status">Published</div>
+        </a>
+
+        <a href="https://pleasantstreet.substack.com/p/the-revolution-will-be-notarized" target="_blank" rel="noopener" class="piece">
+          <div class="piece-num">02</div>
+          <div class="piece-body">
+            <div class="piece-title">The Revolution Will Be Notarized</div>
+            <div class="piece-dek">Every successful revolution will consume itself.</div>
+            <div class="piece-meta">Nov 11, 2025 <span class="dot">·</span> 10 min</div>
           </div>
-        </div>
-        <div class="process-step">
-          <span class="process-n">3</span>
-          <div>
-            <span class="process-tag">Month 2</span>
-            <p class="process-title">Install</p>
-            <p class="process-body">Implement the system with your team. Establish operating cadence, accountability structure, and the playbooks your people will actually use.</p>
+          <div class="piece-status">Published</div>
+        </a>
+
+        <a href="https://pleasantstreet.substack.com/p/blockchain-101-for-institutions-a-804" target="_blank" rel="noopener" class="piece has-aux">
+          <div class="piece-num">01</div>
+          <div class="piece-body">
+            <div class="piece-title">Blockchain 101 for Institutions: A Field Guide</div>
+            <div class="piece-dek">Understanding blockchain and its institutional adoption.</div>
+            <div class="piece-meta">Nov 3, 2025 <span class="dot">·</span> 9 min</div>
           </div>
-        </div>
-        <div class="process-step">
-          <span class="process-n">4</span>
-          <div>
-            <span class="process-tag">Ongoing</span>
-            <p class="process-title">Scale</p>
-            <p class="process-body">Refine the model as the company grows and complexity increases. The system evolves with you.</p>
-          </div>
+          <div class="piece-status">Published</div>
+        </a>
+        <div class="piece-aux-row">
+          <a href="https://pleasantstreet.substack.com/p/blockchain-glossary-for-institutions" target="_blank" rel="noopener">See also: Blockchain Glossary &rarr;</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- VERTICALS -->
-  <section class="section-alt">
-    <div class="section-pad wrap">
-      <p class="section-label">Where we focus</p>
-      <h2>Built for complex products<br>in fast-moving markets.</h2>
-      <div class="vert-grid">
-        <div class="vert">
-          <span class="vert-tag">Fintech</span>
-          <p class="vert-name">Financial technology</p>
-          <p class="vert-desc">Payments, lending, infrastructure — where compliance complexity meets GTM urgency.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORKS -->
+<section class="section" id="frameworks">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-head-l"><span class="num">§ 02</span><span class="k">Frameworks</span></span>
+      <span class="section-head-r">04 published</span>
+    </div>
+
+    <div class="fw-grid">
+
+      <a href="https://pleasantstreet.substack.com/p/the-modern-gtm-stack-by-stage" target="_blank" rel="noopener" class="fw-card">
+        <div class="fw-meta">
+          <span class="fw-series">GTM Series &middot; F.01</span>
+          <span class="fw-date">Q2 / 2026</span>
         </div>
-        <div class="vert">
-          <span class="vert-tag">Digital assets</span>
-          <p class="vert-name">Blockchain infrastructure</p>
-          <p class="vert-desc">Institutional adoption, enterprise sales, and the revenue motions that work in a market traditional playbooks weren't built for.</p>
+        <h3 class="fw-title">The Modern GTM Stack, <em>By Stage.</em></h3>
+        <p class="fw-dek">Five layers. Four stages. What to install, what to skip, and what breaks when you buy <em>ahead of your stage.</em></p>
+        <div class="fw-diagram">
+          <div class="mini-stack">
+            <div class="mini-stack-header">
+              <span>Layer</span><span>S1</span><span>S2</span><span>S3</span><span>S4</span>
+            </div>
+            <div class="mini-stack-row">
+              <span class="mini-stack-layer">Data</span>
+              <div class="mini-stack-cell active stage-pulse-1"></div>
+              <div class="mini-stack-cell active stage-pulse-1"></div>
+              <div class="mini-stack-cell active stage-pulse-1"></div>
+              <div class="mini-stack-cell active stage-pulse-1"></div>
+            </div>
+            <div class="mini-stack-row">
+              <span class="mini-stack-layer">Signal</span>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell active stage-pulse-3"></div>
+              <div class="mini-stack-cell active stage-pulse-3"></div>
+            </div>
+            <div class="mini-stack-row">
+              <span class="mini-stack-layer">Outreach</span>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+            </div>
+            <div class="mini-stack-row">
+              <span class="mini-stack-layer">Conv. Intel</span>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell active stage-pulse-3"></div>
+              <div class="mini-stack-cell active stage-pulse-3"></div>
+            </div>
+            <div class="mini-stack-row">
+              <span class="mini-stack-layer">Workflow</span>
+              <div class="mini-stack-cell empty"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+              <div class="mini-stack-cell active stage-pulse-2"></div>
+            </div>
+          </div>
         </div>
-        <div class="vert">
-          <span class="vert-tag">AI & ML</span>
-          <p class="vert-name">Applied AI</p>
-          <p class="vert-desc">Selling technical products to non-technical buyers in markets that didn't exist two years ago.</p>
+        <div class="fw-foot">
+          <span class="fw-read">Read &nbsp;→</span>
+          <span class="fw-time">14 min</span>
         </div>
-        <div class="vert">
-          <span class="vert-tag">Dev tools</span>
-          <p class="vert-name">Developer platforms</p>
-          <p class="vert-desc">Bottom-up growth with top-down conversion — where PLG meets enterprise.</p>
+      </a>
+
+      <a href="https://pleasantstreet.substack.com/p/builders-vs-scalers" target="_blank" rel="noopener" class="fw-card">
+        <div class="fw-meta">
+          <span class="fw-series">GTM Series &middot; F.02</span>
+          <span class="fw-date">Q2 / 2026</span>
+        </div>
+        <h3 class="fw-title">Builders <em>vs.</em> Scalers.</h3>
+        <p class="fw-dek">The founder motion and the repeatable motion are <em>different skills.</em> Most companies confuse the handoff and pay for it.</p>
+        <div class="fw-diagram">
+          <div class="mini-2x2">
+            <div class="mini-2x2-cell scan-1">
+              <div class="mini-2x2-label label-scaler">Scaler</div>
+              <div class="mini-2x2-title">High exec<br>Low disco</div>
+            </div>
+            <div class="mini-2x2-cell scan-2">
+              <div class="mini-2x2-label label-builder">Builder</div>
+              <div class="mini-2x2-title">High exec<br>High disco</div>
+            </div>
+            <div class="mini-2x2-cell scan-3">
+              <div class="mini-2x2-label label-mismatch">Mismatch</div>
+              <div class="mini-2x2-title">Low exec<br>Low disco</div>
+            </div>
+            <div class="mini-2x2-cell scan-4">
+              <div class="mini-2x2-label label-coachable">Coachable</div>
+              <div class="mini-2x2-title">Low exec<br>High disco</div>
+            </div>
+          </div>
+        </div>
+        <div class="fw-foot">
+          <span class="fw-read">Read &nbsp;→</span>
+          <span class="fw-time">9 min</span>
+        </div>
+      </a>
+
+      <a href="https://pleasantstreet.substack.com/p/the-stablecoin-paradox" target="_blank" rel="noopener" class="fw-card">
+        <div class="fw-meta">
+          <span class="fw-series">Digital Assets &middot; F.03</span>
+          <span class="fw-date">Q1 / 2026</span>
+        </div>
+        <h3 class="fw-title">The Stablecoin <em>Paradox.</em></h3>
+        <p class="fw-dek">Build, partner, or adopt: the strategic choice every fintech now faces, and why most are <em>choosing wrong.</em></p>
+        <div class="fw-diagram">
+          <div class="mini-tree">
+            <div class="tree-node root">Stablecoin <em>exposure</em></div>
+            <div class="tree-line-vertical"></div>
+            <div class="tree-row">
+              <div class="tree-node branch-1">Build</div>
+              <div class="tree-node branch-2">Partner</div>
+              <div class="tree-node branch-3">Adopt</div>
+            </div>
+          </div>
+        </div>
+        <div class="fw-foot">
+          <span class="fw-read">Read &nbsp;→</span>
+          <span class="fw-time">11 min</span>
+        </div>
+      </a>
+
+      <a href="https://pleasantstreet.substack.com/p/the-sales-product-pendulum" target="_blank" rel="noopener" class="fw-card">
+        <div class="fw-meta">
+          <span class="fw-series">GTM Series &middot; F.04</span>
+          <span class="fw-date">Q1 / 2026</span>
+        </div>
+        <h3 class="fw-title">The Sales&ndash;Product <em>Pendulum.</em></h3>
+        <p class="fw-dek">Sales and product don't usually break all at once. They <em>drift.</em> Read the swing, restore the rhythm.</p>
+        <div class="fw-diagram">
+          <div class="mini-pendulum">
+            <div class="pend-trio">
+              <div class="pend-trio-cell">
+                <svg class="pend-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path class="pend-arc" d="M 26.04 71.34 A 64 64 0 0 1 73.96 71.34" />
+                  <line class="pend-rod-rest" x1="50" y1="12" x2="50" y2="76" />
+                  <circle class="pend-bob-rest" cx="50" cy="76" r="5" />
+                  <g class="pend-swinger pend-swing-tight">
+                    <line class="pend-rod" x1="50" y1="12" x2="50" y2="76" />
+                    <circle cx="50" cy="76" r="5" style="fill: var(--rust);" />
+                  </g>
+                  <circle class="pend-anchor" cx="50" cy="12" r="2" />
+                </svg>
+              </div>
+              <div class="pend-trio-cell">
+                <svg class="pend-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path class="pend-arc" d="M 39.99 75.21 A 64 64 0 0 1 60.01 75.21" />
+                  <line class="pend-rod-rest" x1="50" y1="12" x2="50" y2="76" />
+                  <circle class="pend-bob-rest" cx="50" cy="76" r="5" />
+                  <g class="pend-swinger pend-swing-slow">
+                    <line class="pend-rod" x1="50" y1="12" x2="50" y2="76" />
+                    <circle cx="50" cy="76" r="5" style="fill: #8a6a18;" />
+                  </g>
+                  <circle class="pend-anchor" cx="50" cy="12" r="2" />
+                </svg>
+              </div>
+              <div class="pend-trio-cell">
+                <svg class="pend-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path class="pend-arc" d="M 30.22 72.86 A 64 64 0 0 1 69.78 72.86" />
+                  <line class="pend-rod-rest" x1="50" y1="12" x2="50" y2="76" />
+                  <circle class="pend-bob-rest" cx="50" cy="76" r="5" />
+                  <g class="pend-swinger pend-swing-restored">
+                    <line class="pend-rod" x1="50" y1="12" x2="50" y2="76" />
+                    <circle cx="50" cy="76" r="5" style="fill: #5a7849;" />
+                  </g>
+                  <circle class="pend-anchor" cx="50" cy="12" r="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="pend-stage-grid">
+              <div class="pend-stage-cell">
+                <div class="pend-label label-early">Early</div>
+                <div class="pend-state">Tight <em>swing</em></div>
+              </div>
+              <div class="pend-stage-cell">
+                <div class="pend-label label-growth">Growth</div>
+                <div class="pend-state">Swing <em>slows</em></div>
+              </div>
+              <div class="pend-stage-cell">
+                <div class="pend-label label-working">Working</div>
+                <div class="pend-state"><em>Restored</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fw-foot">
+          <span class="fw-read">Read &nbsp;→</span>
+          <span class="fw-time">8 min</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-head-l"><span class="num">§ 03</span><span class="k">Products</span></span>
+      <span class="section-head-r">02 in active build</span>
+    </div>
+
+    <div class="grid cols-2">
+
+      <div class="item">
+        <div class="item-tag">
+          <span><span class="num">P.01</span>Waypoint</span>
+          <span class="status beta">Private beta</span>
+        </div>
+        <h3 class="item-title">Waypoint.</h3>
+        <p class="item-desc">A GTM <em>intelligence and orchestration system.</em> Researches target accounts, synthesizes signals into a narrative diagnosis, drafts personalized outbound for human review, and connects directly into HubSpot, Gmail, and Slack. Built first for Pleasant Street's own outbound.</p>
+        <div class="product-mockup">
+          <div class="waypoint-mock">
+            <div class="waypoint-mock-head">
+              <span class="waypoint-mock-mark">Waypoint<span class="waypoint-mock-version">v1.4</span></span>
+              <span class="waypoint-mock-status">Researching</span>
+            </div>
+            <div class="waypoint-mock-body">
+              <div class="waypoint-mock-company">
+                <span class="waypoint-mock-company-name">Acme Data, Inc.</span>
+                <span class="waypoint-mock-company-meta">Series E &middot; ICP 92%</span>
+              </div>
+              <div class="waypoint-mock-diag">
+                <div class="waypoint-mock-eyebrow"><span class="num">02</span>Diagnosis</div>
+                <div class="waypoint-mock-title">Stage 3 transition. <em>CRO inheriting</em> a product-led pipeline.</div>
+              </div>
+              <div class="waypoint-mock-signals">
+                <div class="waypoint-mock-signal">
+                  <span class="waypoint-mock-signal-icon">+</span>
+                  <span>14 enterprise sales roles posted in 90 days</span>
+                  <span class="waypoint-mock-signal-source">LinkedIn</span>
+                </div>
+                <div class="waypoint-mock-signal">
+                  <span class="waypoint-mock-signal-icon">+</span>
+                  <span>CRO hired Q1 2026 from Stripe</span>
+                  <span class="waypoint-mock-signal-source">Press</span>
+                </div>
+                <div class="waypoint-mock-signal">
+                  <span class="waypoint-mock-signal-icon">+</span>
+                  <span>Series E announced March 2026</span>
+                  <span class="waypoint-mock-signal-source">Funding</span>
+                </div>
+              </div>
+            </div>
+            <div class="waypoint-mock-progress"></div>
+          </div>
+        </div>
+        <div class="item-foot">
+          <span>Status &middot; Building</span>
+          <span class="arrow">Contact for access &nbsp;→</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- WHO WE HELP -->
-  <section>
-    <div class="section-pad wrap">
-      <p class="section-label">Who we help</p>
-      <h2>Where companies get stuck.</h2>
-      <p class="section-sub">We build the system to get you to the next stage.</p>
-      <div class="transitions">
-        <div class="transition-row">
-          <div class="t-cell">
-            <span class="t-stage">Sales motion</span>
-            <p class="t-label">Founder-led sales</p>
-            <p class="t-desc">Closed on personality, not process</p>
-          </div>
-          <div class="t-cell t-right">
-            <span class="t-connector">→ The build</span>
-            <p class="t-label">Repeatable team motion</p>
-            <p class="t-desc">A playbook the whole team can run</p>
+      <div class="item">
+        <div class="item-tag">
+          <span><span class="num">P.02</span>Slate</span>
+          <span class="status">Live Beta</span>
+        </div>
+        <h3 class="item-title">Slate.</h3>
+        <p class="item-desc">A B2B platform that turns static sales PDFs into AI-guided prospect experiences with buyer intent capture. <em>DocSend tells you what they saw. Slate tells you what they thought.</em> Live at sendslate.co with early users.</p>
+        <div class="product-mockup">
+          <div class="slate-mock">
+            <div class="slate-mock-pdf">
+              <div class="slate-mock-pdf-label">Product-overview.pdf</div>
+              <div class="slate-mock-line"></div>
+              <div class="slate-mock-line short"></div>
+              <div class="slate-mock-line"></div>
+              <div class="slate-mock-line shorter"></div>
+              <div class="slate-mock-line"></div>
+              <div class="slate-mock-line short"></div>
+              <div class="slate-mock-line shorter"></div>
+              <div class="slate-mock-pageno">1 / 4</div>
+            </div>
+            <div class="slate-mock-chat">
+              <div class="slate-mock-chat-head">
+                <div class="slate-mock-avatar">S</div>
+                <div class="slate-mock-chat-name">Slate</div>
+                <div class="slate-mock-chat-role">Expert</div>
+              </div>
+              <div class="slate-mock-bubble">
+                <div class="slate-mock-bubble-line"></div>
+                <div class="slate-mock-bubble-line short"></div>
+                <div class="slate-mock-bubble-line shorter"></div>
+              </div>
+              <div class="slate-mock-bubble user">
+                <div class="slate-mock-bubble-line"></div>
+                <div class="slate-mock-bubble-line short"></div>
+              </div>
+              <div class="slate-mock-typing">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="slate-mock-input">
+                <span>Ask anything…</span>
+                <div class="slate-mock-send"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="transition-row">
-          <div class="t-cell">
-            <span class="t-stage">Pipeline</span>
-            <p class="t-label">Early traction</p>
-            <p class="t-desc">Wins, but no pattern behind them</p>
-          </div>
-          <div class="t-cell t-right">
-            <span class="t-connector">→ The build</span>
-            <p class="t-label">Structured pipeline</p>
-            <p class="t-desc">ICP defined, motion standardized</p>
-          </div>
+        <div class="item-foot">
+          <span>Status &middot; Building</span>
+          <span class="arrow">sendslate.co &nbsp;→</span>
         </div>
-        <div class="transition-row">
-          <div class="t-cell">
-            <span class="t-stage">Retention</span>
-            <p class="t-label">First customers</p>
-            <p class="t-desc">No system to keep or grow them</p>
-          </div>
-          <div class="t-cell t-right">
-            <span class="t-connector">→ The build</span>
-            <p class="t-label">Expansion engine</p>
-            <p class="t-desc">Lifecycle model driving NRR above 100%</p>
-          </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section" id="reports">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-head-l"><span class="num">§ 04</span><span class="k">Reports</span></span>
+      <span class="section-head-r">No. 001 &middot; Refreshed quarterly</span>
+    </div>
+
+    <a href="/reports/state-of-institutional-digital-assets/" class="idx-card">
+      <div class="idx-card-l">
+        <div class="idx-tag">
+          <span><span class="num">R.01</span>Quarterly report</span>
+          <span class="idx-status"><span class="idx-dot"></span>Updating</span>
         </div>
-        <div class="transition-row">
-          <div class="t-cell">
-            <span class="t-stage">Revenue</span>
-            <p class="t-label">Inconsistent growth</p>
-            <p class="t-desc">Revenue that's hard to forecast</p>
+        <h3 class="idx-title">The State of Institutional <em>Digital Assets.</em></h3>
+        <p class="idx-desc">A working synthesis of where the institutional crypto stack is heading. Five themes (stablecoins, tokenization, infrastructure, settlement, payments), each with thesis, recent moves, benchmarks, and a Pleasant Street view drawn from <em>primary sources.</em></p>
+        <div class="idx-meta">
+          <div class="idx-meta-row"><span class="idx-meta-k">Issue</span><span>No. 001 &middot; Q2 2026</span></div>
+          <div class="idx-meta-row"><span class="idx-meta-k">Themes</span><span>05</span></div>
+          <div class="idx-meta-row"><span class="idx-meta-k">Inputs</span><span>09 &middot; primary &amp; on-chain</span></div>
+          <div class="idx-meta-row"><span class="idx-meta-k">Cadence</span><span>Quarterly &middot; live indicators continuous</span></div>
+        </div>
+        <div class="idx-foot">
+          <span class="idx-foot-l">Q2 2026 &middot; Live</span>
+          <span class="idx-foot-r">Open report &nbsp;&rarr;</span>
+        </div>
+      </div>
+
+      <div class="idx-card-r">
+        <div class="idx-mock">
+          <div class="idx-mock-head">
+            <span class="idx-mock-mark">The State of Institutional <em>Digital Assets</em><span class="idx-mock-no">No. 001</span></span>
+            <span class="idx-mock-status"><span class="idx-mock-dot"></span>Live</span>
           </div>
-          <div class="t-cell t-right">
-            <span class="t-connector">→ The build</span>
-            <p class="t-label">Predictable revenue</p>
-            <p class="t-desc">A system leadership can plan around</p>
+
+          <div class="idx-mock-stats">
+            <div class="idx-mock-stat">
+              <span class="idx-mock-stat-k"><span class="idx-mock-pulse"></span>Stablecoin supply</span>
+              <span class="idx-mock-stat-v">$248.6B</span>
+              <span class="idx-mock-stat-m">DeFiLlama &middot; live</span>
+            </div>
+            <div class="idx-mock-stat">
+              <span class="idx-mock-stat-k"><span class="idx-mock-pulse"></span>BTC spot</span>
+              <span class="idx-mock-stat-v">$104,250</span>
+              <span class="idx-mock-stat-m">CoinGecko &middot; live</span>
+            </div>
+            <div class="idx-mock-stat">
+              <span class="idx-mock-stat-k"><span class="idx-mock-pulse"></span>Stablecoin 24h vol.</span>
+              <span class="idx-mock-stat-v">$28.4B</span>
+              <span class="idx-mock-stat-m">Artemis &middot; live</span>
+            </div>
+          </div>
+
+          <div class="idx-mock-themes">
+            <div class="idx-mock-theme">
+              <span class="idx-mock-theme-num">01</span>
+              <span class="idx-mock-theme-title">Stablecoins, after <em>GENIUS</em></span>
+              <span class="idx-mock-theme-tag">Fragmenting</span>
+            </div>
+            <div class="idx-mock-theme">
+              <span class="idx-mock-theme-num">02</span>
+              <span class="idx-mock-theme-title">Tokenization &amp; <em>RWAs</em></span>
+              <span class="idx-mock-theme-tag">Accelerating</span>
+            </div>
+            <div class="idx-mock-theme">
+              <span class="idx-mock-theme-num">03</span>
+              <span class="idx-mock-theme-title">Infrastructure &amp; <em>procurement</em></span>
+              <span class="idx-mock-theme-tag">Maturing</span>
+            </div>
+            <div class="idx-mock-theme">
+              <span class="idx-mock-theme-num">04</span>
+              <span class="idx-mock-theme-title">Settlement &amp; <em>collateral</em></span>
+              <span class="idx-mock-theme-tag">Unlocking</span>
+            </div>
+            <div class="idx-mock-theme">
+              <span class="idx-mock-theme-num">05</span>
+              <span class="idx-mock-theme-title">Payments &amp; <em>FX</em></span>
+              <span class="idx-mock-theme-tag">Shifting</span>
+            </div>
+          </div>
+
+          <div class="idx-mock-foot">
+            <span>Sources &middot; DeFiLlama &middot; rwa.xyz &middot; Artemis &middot; BIS &middot; +6</span>
+            <span>Last updated &middot; Q2 2026</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </a>
+  </div>
+</section>
 
-  <!-- ABOUT -->
-  <section id="about" class="section-alt">
-    <div class="section-pad wrap">
-      <div class="about-grid">
-        <div>
-          <img src="./avi.jpg" alt="Avi Meyers — Pleasant Street Advisory" class="about-photo" />
-        </div>
-        <div>
-          <div class="about-title">
-            <p class="section-label">About</p>
-          </div>
-          <p class="about-body">Pleasant Street Advisory is led by Avi Meyers, a revenue and GTM operator with 16+ years across fintech, digital assets, and SaaS.</p>
-          <p class="about-body">Avi has designed and run revenue organizations scaling from $2M to $15M ARR, launched new business lines from $0 to $2M, and built forward-deployed customer models that drove 115%+ net revenue retention — including at a leading blockchain infrastructure company navigating institutional adoption.</p>
-          <p class="about-body">The firm exists to bring operator-level experience to startups navigating the hardest phase of growth: when the product works, but the revenue system doesn't.</p>
-          <div class="tags">
-            <span class="tag">GTM architecture</span>
-            <span class="tag">Lifecycle design</span>
-            <span class="tag">Revenue operating models</span>
-            <span class="tag">CS frameworks</span>
-            <span class="tag">Pipeline systems</span>
-            <span class="tag">NRR growth</span>
-          </div>
-        </div>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-head-l"><span class="num">§ 05</span><span class="k">About</span></span>
+      <span class="section-head-r">16 years</span>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-meta">
+        <div class="about-meta-line"><span class="k">NAME</span> &middot; Avi Meyers</div>
+        <div class="about-meta-line"><span class="k">BASE</span> &middot; Boston, MA</div>
+        <div class="about-meta-line"><span class="k">YEARS</span> &middot; 16 in market</div>
+        <div class="about-meta-line"><span class="k">PRIOR</span> &middot; Flipside · 7 yrs</div>
+        <div class="about-meta-line"><span class="k">PRIOR</span> &middot; SS&amp;C Eze · 9 yrs</div>
+        <div class="about-meta-line"><span class="k">FOCUS</span> &middot; Commercial architecture</div>
+      </div>
+
+      <div class="about-body">
+        <p>I work on <em>commercial architecture</em>: how go-to-market gets designed before there's a repeatable motion, how operating systems need to change as a business scales, and how to manage the transitions where most companies stall.</p>
+        <p>Seven years at Flipside, a blockchain data platform, where I led GTM through the company's growth from <em>$2M to $15M ARR</em> and founded a <em>$0-to-$2M</em> advisory line. Nine years before that at SS&amp;C Eze, working with hedge funds and asset managers on trading workflows, compliance, and the systems behind both.</p>
+        <p>Pleasant Street is where I share what I'm building, what I'm learning, and how I think.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA -->
-  <section id="contact" class="cta-section">
-    <div class="wrap">
-      <h2>Ready to build the system?</h2>
-      <p class="cta-sub">In 30 minutes we can usually identify the biggest gap in your revenue system.</p>
-      <a href="https://calendly.com/avi-pleasantstreet/30min" target="_blank" class="btn-solid">Schedule a discovery call →</a>
+<!-- CONTACT -->
+<section class="contact">
+  <div class="wrap">
+    <p class="contact-line">If any of this lines up with what you're <em>building,</em> let's talk.</p>
+    <a href="mailto:avi@pleasantstreet.co" class="contact-email">avi@pleasantstreet.co</a>
+    <p class="contact-meta">Selective engagements &middot; No deck required</p>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<div class="colophon">
+  <div class="colophon-inner">
+    <div class="colophon-l">
+      <span class="ps">Pleasant<span class="street">Street</span></span>
+      <span>BOS / 42.36°N</span>
     </div>
-  </section>
-
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-logo">Pleasant Street Advisory</span>
-      <span class="footer-copy">© 2026 · pleasantstreet.co</span>
+    <div class="colophon-r">
+      <a href="https://www.linkedin.com/in/avimeyers/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://pleasantstreet.substack.com/" target="_blank" rel="noopener">Substack</a>
+      <a href="https://x.com/avimeyers" target="_blank" rel="noopener">Twitter</a>
+      <span>© 2026</span>
     </div>
-  </footer>
+  </div>
+</div>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', function() { mobileMenu.classList.toggle('open'); });
-    function closeMenu() { mobileMenu.classList.remove('open'); }
-    document.addEventListener('click', function(e) {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-      }
-    });
-  </script>
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+  }), { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.section, .hero-line')
+    .forEach(el => { el.classList.add('reveal'); obs.observe(el); });
+</script>
 
 </body>
 </html>
